@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "Bash(awk '{ print NR\": \"length\\($0\\)\" chars\" }' /Users/Ethan/Downloads/the-gsap-field/index.html)",
+      "Bash(cp index.html /private/tmp/claude-502/-Users-Ethan-Downloads-the-gsap-field/2c3cefa0-c329-43f8-a580-432fc5fe7dc1/scratchpad/index.test.html)",
+      "Bash(npx --yes prettier@3 --parser html --print-width 120 index.test.html)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(python3 -c ' *)",
+      "Bash(cp /private/tmp/claude-502/-Users-Ethan-Downloads-the-gsap-field/2c3cefa0-c329-43f8-a580-432fc5fe7dc1/scratchpad/index.pretty.html /Users/Ethan/Downloads/the-gsap-field/index.html)",
+      "Bash(tidy -q -e index.html)",
+      "Bash(tidy -v)",
+      "Bash(tidy -q -e --new-blocklevel-tags \"section,video,source,footer\" index.html)",
+      "Bash(python3 -m http.server 8934)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8934/index.html)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"HTTP:%{http_code}\\\\n\" http://localhost:8934/index.html)"
+    ],
+    "additionalDirectories": [
+      "/Users/Ethan/Downloads/the-gsap-field"
+    ]
+  }
+}
