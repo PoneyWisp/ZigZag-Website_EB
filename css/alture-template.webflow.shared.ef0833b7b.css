@@ -3591,6 +3591,8 @@ blockquote {
 
 .credit_artiste a:hover {
   text-decoration: underline;
+  color: #CCFCCC ;
+  font-style: bold;
 }
 
 .home-header_bottom {

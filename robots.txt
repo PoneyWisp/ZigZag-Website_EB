@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /legal/
+Disallow: /perdu.html
+
+Sitemap: https://zigzagvisuals.ch/sitemap.xml

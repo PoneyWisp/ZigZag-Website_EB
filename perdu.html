@@ -1,29 +1,36 @@
 <!doctype html><!-- Handled by Exflow.site -->
-<html data-wf-page="686c3f27c11c186f070e56d4" data-wf-site="6840876d4d1ed0e8e2a330b9" lang="en">
+<html data-wf-page="686c3f27c11c186f070e56d4" data-wf-site="6840876d4d1ed0e8e2a330b9" lang="fr">
   <head>
     <!-- Métadonnées de la page : titre, description, réseaux sociaux (Open Graph / Twitter) -->
     <meta charset="utf-8" />
     <link href="https://cdn.prod.website-files.com" rel="preconnect" />
-    <title>ZigZag Visuals - Page Perdue</title>
+    <title>Page perdue — ZigZag Visuals</title>
+    <meta name="author" content="ZigZag Visuals" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="https://zigzagvisuals.ch/perdu.html" />
     <meta
       content="Vous avez trouvé une page perdue. Retournez à l'accueil pour découvrir nos projets."
+      name="description"
     />
-    <meta content="Site de ZigZag Visuals" />
+    <meta content="Page perdue — ZigZag Visuals" property="og:title" />
     <meta
-      content="Une boite de production suisse"
+      content="Vous avez trouvé une page perdue. Retournez à l'accueil pour découvrir nos projets."
+      property="og:description"
     />
-    <meta content="../images/open-20graph.png" property="og:image" />
-    <meta content="Alture - Webflow HTML website template" name="twitter:title" />
+    <meta content="https://zigzagvisuals.ch/resources/vid%C3%A9os/images/20260719_PhotoSiteWebZigZag_0177.webp" property="og:image" />
+    <meta content="https://zigzagvisuals.ch/perdu.html" property="og:url" />
+    <meta content="ZigZag Visuals" property="og:site_name" />
+    <meta content="fr_CH" property="og:locale" />
+    <meta content="Page perdue — ZigZag Visuals" name="twitter:title" />
     <meta
-      content="A bold agency template with smooth animations, hype visuals, and a custom mouse trail effect."
+      content="Vous avez trouvé une page perdue. Retournez à l'accueil pour découvrir nos projets."
       name="twitter:description"
     />
     <meta property="og:type" content="website" />
     <meta content="summary_large_image" name="twitter:card" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Webflow" name="generator" />
     <!-- Feuille de style principale générée par Webflow -->
-    <link href="../css/alture-template.webflow.shared.ef0833b7b.css" rel="stylesheet" type="text/css" />
+    <link href="css/alture-template.webflow.shared.ef0833b7b.css" rel="stylesheet" type="text/css" />
     <!-- Styles générés automatiquement par Webflow pour les animations/interactions (IX2) -->
     <style>
       @media (min-width: 992px) {
@@ -68,9 +75,259 @@
           ("ontouchstart" in o || (o.DocumentTouch && c instanceof DocumentTouch)) && (n.className += t + "touch"));
       })(window, document);
     </script>
+    <!-- Pied de page réel : ligne d'intro CTA, wordmark "verre liquide" interactif, carte crédit cachée (copié tel quel depuis index.html/contact.html) -->
+    <style>
+      .footer_wrap {
+        background-color: var(--_colors---primary--black);
+        padding-bottom: 3rem;
+      }
+
+      .footer_intro {
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        display: flex;
+      }
+
+      .footer_intro .text-style-label {
+        color: var(--_colors---white--70);
+      }
+
+      .footer_intro-link {
+        display: flex;
+        align-items: center;
+        gap: var(--fixed--0-5rem);
+        font-size: var(--fixed--1-125rem);
+        font-weight: var(--_typography---font-weight--semibold);
+        color: var(--_colors---primary--white);
+      }
+
+      .footer_intro-arrow {
+        display: inline-block;
+        transition: transform .3s ease;
+      }
+
+      .footer_intro-link:hover .footer_intro-arrow {
+        transform: translateX(.25rem);
+      }
+
+      .footer_component .line {
+        border-top-color: var(--_colors---white--20);
+      }
+
+      .footer_link-label {
+        color: var(--_colors---primary--white);
+      }
+
+      .footer_link {
+        color: var(--_colors---white--70);
+      }
+
+      .footer_link:hover {
+        color: var(--_colors---primary--white);
+      }
+
+      .footer_copyright {
+        color: var(--_colors---white--50);
+      }
+
+      .footer_template-link {
+        color: var(--_colors---white--70);
+      }
+
+      .footer_template-link:hover {
+        color: var(--_colors---primary--white);
+      }
+
+      .footer_social-icon {
+        filter: invert(1);
+      }
+
+      .footer_newsletter-button {
+        background-image: none;
+        background-color: var(--_colors---primary--white);
+        color: var(--_colors---primary--black);
+      }
+
+      .footer_newsletter-button:hover {
+        background-image: none;
+        background-color: #ccfccc;
+      }
+
+      @property --mx {
+        syntax: "<percentage>";
+        inherits: true;
+        initial-value: 50%;
+      }
+
+      @property --my {
+        syntax: "<percentage>";
+        inherits: true;
+        initial-value: 55%;
+      }
+
+      .footer_brand-wrap {
+        position: relative;
+        width: 100%;
+        text-align: center;
+      }
+
+      .footer_brand-base,
+      .footer_brand-fill {
+        font-size: clamp(3rem, 13vw, 14rem);
+        font-weight: var(--_typography---font-weight--semibold);
+        letter-spacing: -.02em;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .footer_brand-base {
+        color: var(--_colors---primary--white);
+        pointer-events: none;
+      }
+
+      .footer_brand-fill {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 0;
+        font-family: inherit;
+        color: #ccfccc;
+        cursor: pointer;
+        -webkit-mask-image: radial-gradient(220px circle at var(--mx) var(--my), #000 0%, #000 42%, transparent 72%);
+        mask-image: radial-gradient(220px circle at var(--mx) var(--my), #000 0%, #000 42%, transparent 72%);
+        animation: footer-brand-wave 13s ease-in-out infinite;
+        transition: --mx .4s cubic-bezier(.22, 1, .36, 1), --my .4s cubic-bezier(.22, 1, .36, 1);
+      }
+
+      .footer_brand-wrap:hover .footer_brand-fill,
+      .footer_brand-wrap:focus-within .footer_brand-fill {
+        animation: none;
+      }
+
+      @keyframes footer-brand-wave {
+        0% {
+          --mx: 12%;
+          --my: 40%;
+        }
+
+        25% {
+          --mx: 38%;
+          --my: 70%;
+        }
+
+        50% {
+          --mx: 64%;
+          --my: 35%;
+        }
+
+        75% {
+          --mx: 88%;
+          --my: 62%;
+        }
+
+        100% {
+          --mx: 12%;
+          --my: 40%;
+        }
+      }
+
+      @media (hover: none) {
+        .footer_brand-fill {
+          opacity: 0;
+          animation: none;
+        }
+      }
+
+      .footer_credit-trigger {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: 1px solid var(--_colors---white--20);
+        background: none;
+        color: var(--_colors---white--50);
+        font-size: 1rem;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 3;
+        transition: color .3s ease, border-color .3s ease;
+      }
+
+      .footer_credit-trigger:hover,
+      .footer_credit-trigger:focus-visible {
+        color: var(--_colors---primary--white);
+        border-color: var(--_colors---primary--white);
+      }
+
+      .footer_credit-card {
+        position: absolute;
+        right: 0;
+        bottom: 2.75rem;
+        padding: var(--fixed--1-25rem) var(--fixed--1-5rem);
+        min-width: 12rem;
+        border-radius: var(--border-radius--large);
+        background-color: rgba(255, 255, 255, .55);
+        -webkit-backdrop-filter: blur(20px) saturate(160%);
+        backdrop-filter: blur(20px) saturate(160%);
+        border: 1px solid rgba(255, 255, 255, .6);
+        box-shadow: 0 20px 45px -20px rgba(0, 0, 0, .25);
+        text-align: right;
+        opacity: 0;
+        transform: translateY(.5rem);
+        pointer-events: none;
+        transition: opacity .35s ease, transform .35s ease;
+        z-index: 2;
+      }
+
+      .footer_credit-trigger:hover + .footer_credit-card,
+      .footer_credit-trigger:focus-visible + .footer_credit-card {
+        opacity: 1;
+        transform: none;
+      }
+
+      .footer_credit-label {
+        color: var(--_colors---grey--400);
+      }
+
+      .footer_credit-name {
+        font-weight: var(--_typography---font-weight--semibold);
+        margin-top: var(--fixed--0-25rem);
+      }
+
+      .footer_credit-year {
+        color: var(--_colors---grey--300);
+        font-size: var(--fixed--0-875rem);
+        margin-top: var(--fixed--0-125rem);
+      }
+
+      @media screen and (max-width: 767px) {
+        .footer_intro {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: var(--fixed--1rem);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .footer_brand-fill {
+          transition: none !important;
+          animation: none !important;
+        }
+
+        .footer_credit-card {
+          transition: opacity .2s ease !important;
+          transform: none !important;
+        }
+      }
+    </style>
     <!-- Icônes du site (favicon) -->
-    <link href="/resources/vidéos/images/ZigZag-Visuals-BLANC.png" rel="shortcut icon" type="image/x-icon" />
-    <link href="/resources/vidéos/images/ZigZag-Visuals-BLANC.png" rel="apple-touch-icon" />
+    <link href="/resources/vidéos/images/ZigZag-Visuals-Monogramme.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="/resources/vidéos/images/ZigZag-Visuals-Monogramme.png" rel="apple-touch-icon" />
     <!-- Améliore le rendu (lissage) des polices -->
     <style>
       * {
@@ -92,7 +349,7 @@
             <div class="navbar_content">
               <div class="navbar_brand">
                 <a href="/" aria-current="page" class="navbar_logo-wrap w-inline-block w--current"
-                  ><img src="/resources/vidéos/images/ZigZag Visuals.svg" loading="lazy" alt="" class="navbar_logo"
+                  ><img src="/resources/vidéos/images/ZigZag Visuals.svg" loading="lazy" alt="ZigZag Visuals" class="navbar_logo"
                 /></a>
                 <div class="navbar_creative">
                   <img src="/resources/vidéos/images/ZigZag-Visuals-Monogramme.png" loading="lazy" alt="" class="navbar_barcode" />
@@ -130,13 +387,13 @@
                     >
                     <div class="navbar_works-number-wrap"><div class="navbar_works-number">1</div></div>
                   </div>
-                  <a href="/blog/1" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
+                  <!-- attente portfolio <a href="/blog/1" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
                     ><div class="navbar_link-texts">
                       <div class="navbar_link-text _1">Portfolio</div>
                       <div class="navbar_link-text _2">Portfolio</div>
                     </div>
-                    <div class="navbar_link-dot"></div></a
-                  ><a
+                    <div class="navbar_link-dot"></div></a>-->
+                  <a
                     href="/contact.html"
                     data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace"
                     class="navbar_link w-inline-block"
@@ -189,8 +446,9 @@
                               <div class="menu_link-text _1">Projets</div>
                               <div class="menu_link-text _2">Projets</div>
                             </div>
-                            <div class="menu_link-dot"></div></a
-                          ><a
+                            <div class="menu_link-dot"></div>
+                          </a>
+                          <!-- attente portfolio <a
                             href="/blog/1"
                             data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
                             class="menu_link w-inline-block"
@@ -198,8 +456,9 @@
                               <div class="menu_link-text _1">Portfolio</div>
                               <div class="menu_link-text _2">Portfolio</div>
                             </div>
-                            <div class="menu_link-dot"></div></a
-                          ><a
+                            <div class="menu_link-dot"></div>
+                          </a>-->
+                          <a
                             href="/contact.html"
                             data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
                             class="menu_link w-inline-block"
@@ -213,13 +472,15 @@
                         <div class="menu_actions">
                           <div class="menu_social-wrap">
                             <div class="menu_social">
-                              <a href="https://instagram.com" target="_blank" class="menu_social-link w-inline-block"
-                                ><img loading="lazy" src="images/social-insta.svg" alt="" class="menu_social-icon" /></a
-                              ><a href="https://x.com" target="_blank" class="menu_social-link w-inline-block"
-                                ><img loading="lazy" src="images/social-x.svg" alt="" class="menu_social-icon" /></a
+                              <a href="https://www.instagram.com/zigzagvisuals/?utm_source=ig_web_button_share_sheet" target="_blank" class="menu_social-link w-inline-block"
+                                ><img loading="lazy" src="images/social-insta.svg" alt="Instagram" class="menu_social-icon" /></a>
+                              <!-- attente comptes X et Dribbble
+                              <a href="https://x.com" target="_blank" class="menu_social-link w-inline-block"
+                                ><img loading="lazy" src="images/social-x.svg" alt="X" class="menu_social-icon" /></a
                               ><a href="https://dribbble.com" target="_blank" class="menu_social-link w-inline-block"
-                                ><img loading="lazy" src="images/dribble.svg" alt="" class="menu_social-icon"
+                                ><img loading="lazy" src="images/dribble.svg" alt="Dribbble" class="menu_social-icon"
                               /></a>
+                              -->
                             </div>
                           </div>
                           <a
@@ -248,6 +509,7 @@
                               /></div
                           ></a>
                           <div class="menu_legal">
+                            <!-- attente de Confidentialité
                             <a
                               href="/legal/confidentialite.html"
                               data-w-id="08715bc4-c4b7-73ba-45ba-b2d079cf51c2"
@@ -261,6 +523,7 @@
                               ><div class="menu_legal-text"> Conditions d'utilisation</div>
                               <div class="menu_legal-line grey"></div
                             ></a>
+                            -->
                           </div>
                         </div>
                         <div data-w-id="5fdd110c-b4dc-4c3b-f311-33bd343ddaa2" class="menu_close">
@@ -348,8 +611,8 @@
                       data-w-id="059e00b0-f64e-1901-eae8-f1971aea4566"
                       class="button-secondary w-variant-084c35ac-0c40-f906-a9cd-0d43386a2d5d w-inline-block"
                       ><div class="button_texts">
-                        <div class="button_text _1">Voir le portfolio</div>
-                        <div class="button_text _2">Voir le portfolio</div>
+                        <div class="button_text _1">Contact</div>
+                        <div class="button_text _2">Contact</div>
                       </div>
                       <div class="button-line_space blue-dark-36"></div>
                       <div class="button-line_dot blue-dark-37">
@@ -360,6 +623,7 @@
                 </div>
               </div>
               <div class="padding-section-medium"></div>
+              <!-- attente contenu : reste du template Alture (images stock + marquee "I like to move it"), pas de rapport avec ZigZag
               <div class="interaction_visual_wrap">
                 <div class="interaction_template">
                   <div class="interaction_img_wrap">
@@ -374,23 +638,23 @@
               <div class="interaction_cms_wrap">
                 <div class="interaction_cms_list">
                   <div class="interaction_cms_item">
-                    <img alt="" src="../images/smartwatch-20close-up-20-1-.webp" class="interaction_cms-img_img" />
+                    <img alt="" src="images/smartwatch-20close-up-20-1-.webp" class="interaction_cms-img_img" />
                   </div>
                   <div class="interaction_cms_item">
-                    <img alt="" src="../images/001_copy_3-1170x780-20-1-.webp" class="interaction_cms-img_img" />
+                    <img alt="" src="images/001_copy_3-1170x780-20-1-.webp" class="interaction_cms-img_img" />
                   </div>
                   <div class="interaction_cms_item">
-                    <img alt="" src="../images/dynamic-20motion-20blur-1.webp" class="interaction_cms-img_img" />
+                    <img alt="" src="images/dynamic-20motion-20blur-1.webp" class="interaction_cms-img_img" />
                   </div>
                   <div class="interaction_cms_item">
                     <img
                       alt=""
-                      src="../images/presentation_hall_mockup-1170x780.webp"
+                      src="images/presentation_hall_mockup-1170x780.webp"
                       class="interaction_cms-img_img"
                     />
                   </div>
                   <div class="interaction_cms_item">
-                    <img alt="" src="../images/image002-1170x780.webp" class="interaction_cms-img_img" />
+                    <img alt="" src="images/image002-1170x780.webp" class="interaction_cms-img_img" />
                   </div>
                 </div>
               </div>
@@ -403,52 +667,46 @@
                   </div>
                 </div>
               </div>
+              -->
             </div>
           </div>
         </section>
       </main>
-      <!--Footer etc-->
+      <!-- Pied de page réel ZigZag Visuals (copié d'index.html/contact.html pour cohérence) -->
       <footer class="footer">
         <div class="padding-global is-tiny">
           <div class="footer_wrap">
             <div class="footer_component">
+
+              <div class="footer_intro">
+                <div class="label_wrap">
+                  <div class="label_dot"></div>
+                  <h2 class="text-style-label">Un projet en tête ?</h2>
+                </div>
+                <a href="/contact.html" class="footer_intro-link">
+                  Démarrer un projet <span class="footer_intro-arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+
+              <div class="line"></div>
+
               <div class="footer_main">
                 <div class="footer_links-groups">
-                  <div id="w-node-_49f89e0f-c321-7bff-a29b-8acdeddf7dc8-eddf7dc2" class="footer_group">
+                  <div class="footer_group">
                     <div class="footer_link-label">Pages</div>
-                    <div class="footer_lists">
-                      <div class="footer_links-list">
-                        <a href="/index.html" class="footer_link w--current">Accueil</a
-                        ><a href="/projet_Glion_VS/index.html" class="footer_link">Projets</a>
-                        <a href="#" class="footer_link">Prendre Contact</a>
-                      </div>
-                      <div class="footer_links-list">
-                        <a href="/" class="footer_link"> x
-                        </a>
-                        <a href="/" class="footer_link">x </a>
-                        <a href="/" class="footer_link">x</a>
-                      </div>
-                      <div class="footer_links-list">
-                        <a href="/" class="footer_link">x</a>
-                        <a href="/" class="footer_link">x</a>
-                        <a href="/" class="footer_link">x</a>
-                      </div>
-                      <div class="footer_links-list">
-                        <a href="/" class="footer_link">x</a
-                        ><a href="/" class="footer_link">x</a
-                        ><a href="/" class="footer_link">x</a>
-                      </div>
+                    <div class="footer_links-list">
+                      <a href="/" class="footer_link">Accueil</a>
+                      <a href="/#section-services" class="footer_link">Services</a>
+                      <a href="/#projets" class="footer_link">Projets</a>
+                      <a href="/studio" class="footer_link">Studio</a>
+                      <a href="/contact.html" class="footer_link">Contact</a>
                     </div>
                   </div>
                 </div>
                 <div class="footer_secondary">
                   <div class="footer_social">
-                    <a href="https://instagram.com" target="_blank" class="footer_social-link w-inline-block"
-                      ><img loading="lazy" src="images/social-insta.svg" alt="" class="footer_social-icon" /></a
-                    ><a href="https://x.com" target="_blank" class="footer_social-link w-inline-block"
-                      ><img loading="lazy" src="images/social-x.svg" alt="" class="footer_social-icon" /></a
-                    ><a href="https://dribbble.com/" target="_blank" class="footer_social-link w-inline-block"
-                      ><img loading="lazy" src="images/dribble.svg" alt="" class="footer_social-icon"
+                    <a href="https://www.instagram.com/zigzagvisuals/?utm_source=ig_web_button_share_sheet" target="_blank" class="footer_social-link w-inline-block"
+                      ><img loading="lazy" src="images/social-insta.svg" alt="Instagram" class="footer_social-icon"
                     /></a>
                   </div>
                   <div class="footer_newsletter w-form">
@@ -458,8 +716,6 @@
                       data-name="Newsletter form"
                       method="get"
                       class="footer_newsletter-form"
-                      data-wf-page-id="6840876d4d1ed0e8e2a330fc"
-                      data-wf-element-id="49f89e0f-c321-7bff-a29b-8acdeddf7df1"
                     >
                       <label for="email-3" class="field-label">Rejoignez notre newsletter</label>
                       <div class="footer_field-wrap">
@@ -474,63 +730,60 @@
                           required=""
                         /><input
                           type="submit"
-                          data-wait="Please wait..."
+                          data-wait="Veuillez patienter..."
                           class="footer_newsletter-button w-button"
-                          value="Subscribe"
+                          value="S'inscrire"
                         />
                       </div>
                     </form>
-                    <div class="form_success-message-2 w-form-done"><div>Bien reçu! Les nouvelles viendront</div></div>
+                    <div class="form_success-message-2 w-form-done"><div>Bien reçu ! Les nouvelles arrivent bientôt.</div></div>
                     <div class="form_error-message w-form-fail">
-                      <div>Oops! Quelque chose s'est mal passé ;-;</div>
+                      <div>Oups, quelque chose s'est mal passé.</div>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="footer_legal-links">
-                <div id="w-node-_49f89e0f-c321-7bff-a29b-8acdeddf7dfe-eddf7dc2" class="footer_legal-wrap">
-                  <div class="footer_copyright">Confidentialité</div>
+                <div class="footer_legal-wrap">
+                  <div class="footer_copyright">© 2026 ZigZag Visuals</div>
                   <div class="footer_legal-divider"></div>
                   <div class="footer_copyright">
-                    <a href="mettre lien html" target="_blank" class="footer_template-link">Conditions d'utilisation</a>
+                    <a href="/perdu.html" class="footer_template-link">Confidentialité</a>
                   </div>
                   <div class="footer_legal-divider"></div>
                   <div class="footer_copyright">
-                    <a href="https://www.template.supply/" target="_blank" class="footer_template-link" >
-                      Rue de la Corsaz 24, 1820 Montreux VD, Switzerland</a
-                    >
+                    <a href="/perdu.html" class="footer_template-link">Conditions d'utilisation</a>
                   </div>
-                </div>
-                <div id="w-node-_49f89e0f-c321-7bff-a29b-8acdeddf7e0b-eddf7dc2" class="footer_template-links">
-                  <a href="/template/style-guide" class="footer_template-link">Photographie</a>
-                  <a href="/template/licenses" class="footer_template-link">Vidéographie</a>
-                  <a href="/template/changelog" class="footer_template-link">Audio</a>
-                  <a href="/template/instructions" class="footer_template-link">Nous Contacter</a>
+                  <div class="footer_legal-divider"></div>
+                  <div class="footer_copyright">Rue de la Corsaz 24, 1820 Montreux VD, Suisse</div>
                 </div>
               </div>
             </div>
-            <div class="footer_brand">
-              <img src="/resources/vidéos/images/ZigZag Visuals.svg" />
-              <span class="footer_mark"> ©2026 ZigZag,</span>
+
+            <div class="footer_brand-wrap" id="footer-brand">
+              <div class="footer_brand-base" aria-hidden="true">ZigZag Visuals</div>
+              <button type="button" class="footer_brand-fill" aria-label="Retour en haut de page">ZigZag Visuals</button>
+
+              <!-- Crédit "ami du collectif" caché : petit repère discret, carte "verre liquide" au survol/focus -->
+              <button type="button" class="footer_credit-trigger" aria-label="Crédit">＋</button>
+              <div class="footer_credit-card">
+                <div class="text-style-label footer_credit-label">Ami du collectif</div>
+                <div class="footer_credit-name">Ethan Broger</div>
+                <div class="footer_credit-year">2026</div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="credit_artiste">
-            © Ami du collectif : 
-              <a 
-            href="aucun" target="_blank" class="credit_artiste-link"> 
-            Ethan Broger </a>
-            - 2026
-        </div> 
-        <hr> <br> <br>
+        <br /> <br />
       </footer>
     </div>
     <!-- Scripts tiers : jQuery, Webflow et bibliothèques d'interaction -->
-    <script src="../js/jquery.js?site=6840876d4d1ed0e8e2a330b9" type="text/javascript"></script>
-    <script src="../js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript"></script>
-    <script src="../js/webflow.schunk.d61b41edd968cc6d.js" type="text/javascript"></script>
-    <script src="../js/webflow-script-2.js" type="text/javascript"></script>
-    <script src="../js/gsap.min.js" type="text/javascript"></script>
+    <script src="js/jquery.js?site=6840876d4d1ed0e8e2a330b9" type="text/javascript"></script>
+    <script src="js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript"></script>
+    <script src="js/webflow.schunk.d61b41edd968cc6d.js" type="text/javascript"></script>
+    <script src="js/webflow-script-2.js" type="text/javascript"></script>
+    <script src="js/gsap.min.js" type="text/javascript"></script>
     <!-- Initialisation de Lenis (défilement fluide) -->
     <script>
       // Initialize Lenis
@@ -607,6 +860,52 @@
         });
       });
     </script>
-      <script src="../js/header-scroll.js" type="text/javascript"></script>
+      <script src="js/header-scroll.js" type="text/javascript"></script>
+    <!-- Interaction du wordmark "verre liquide" du footer (copié tel quel depuis index.html/contact.html) -->
+    <script>
+      (function () {
+        var wrap = document.getElementById("footer-brand");
+        if (!wrap) return;
+
+        var fill = wrap.querySelector(".footer_brand-fill");
+        var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+        if (canHover && fill) {
+          var frame = null;
+
+          wrap.addEventListener("mouseenter", function () {
+            var cs = getComputedStyle(fill);
+            fill.style.setProperty("--mx", cs.getPropertyValue("--mx").trim());
+            fill.style.setProperty("--my", cs.getPropertyValue("--my").trim());
+          });
+
+          wrap.addEventListener("mousemove", function (e) {
+            var rect = wrap.getBoundingClientRect();
+            var mx = ((e.clientX - rect.left) / rect.width) * 100;
+            var my = ((e.clientY - rect.top) / rect.height) * 100;
+
+            if (frame) return;
+            frame = requestAnimationFrame(function () {
+              fill.style.setProperty("--mx", mx.toFixed(2) + "%");
+              fill.style.setProperty("--my", my.toFixed(2) + "%");
+              frame = null;
+            });
+          });
+
+          wrap.addEventListener("mouseleave", function () {
+            fill.style.removeProperty("--mx");
+            fill.style.removeProperty("--my");
+          });
+        }
+
+        fill.addEventListener("click", function () {
+          if (typeof lenis !== "undefined" && lenis && typeof lenis.scrollTo === "function") {
+            lenis.scrollTo(0);
+          } else {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
