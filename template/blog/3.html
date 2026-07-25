@@ -1,0 +1,582 @@
+<!doctype html><!-- Handled by Exflow.site -->
+<html data-wf-page="686c39a6fe51467aea53d714" data-wf-site="6840876d4d1ed0e8e2a330b9" lang="en">
+  <head>
+    <!-- Métadonnées de la page : titre, description, réseaux sociaux (Open Graph / Twitter) -->
+    <meta charset="utf-8" />
+    <link href="https://cdn.prod.website-files.com" rel="preconnect" />
+    <title>Alture - Webflow HTML website template</title>
+    <meta
+      content="A bold agency template with smooth animations, hype visuals, and a custom mouse trail effect."
+      name="description"
+    />
+    <meta content="Alture - Webflow HTML website template" property="og:title" />
+    <meta
+      content="A bold agency template with smooth animations, hype visuals, and a custom mouse trail effect."
+      property="og:description"
+    />
+    <meta content="../images/open-20graph.png" property="og:image" />
+    <meta content="Alture - Webflow HTML website template" name="twitter:title" />
+    <meta
+      content="A bold agency template with smooth animations, hype visuals, and a custom mouse trail effect."
+      name="twitter:description"
+    />
+    <meta property="og:type" content="website" />
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Webflow" name="generator" />
+    <!-- Feuille de style principale générée par Webflow -->
+    <link href="../css/alture-template.webflow.shared.ef0833b7b.css" rel="stylesheet" type="text/css" />
+    <!-- Détecte si le site est consulté sur un écran tactile -->
+    <script type="text/javascript">
+      !(function (o, c) {
+        var n = c.documentElement,
+          t = " w-mod-";
+        ((n.className += t + "js"),
+          ("ontouchstart" in o || (o.DocumentTouch && c instanceof DocumentTouch)) && (n.className += t + "touch"));
+      })(window, document);
+    </script>
+    <!-- Icônes du site (favicon) -->
+    <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="../images/app-icon.png" rel="apple-touch-icon" />
+    <!-- Améliore le rendu (lissage) des polices -->
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+
+    <!-- Bibliothèque Lenis : défilement fluide (smooth scroll) -->
+    <script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.4/dist/lenis.css" />
+  </head>
+  <body>
+    <!-- Badge flottant "Acheter le template" (lien affilié Webflow) -->
+    <a href="https://webflow.com/templates/html/alture-website-template" target="_blank" class="buy-template w-button"
+      >Buy template</a
+    >
+    <div class="page-wrapper">
+      <!-- Barre de navigation principale (logo, liens, menu mobile) -->
+      <nav class="navbar">
+        <div class="padding-global is-small">
+          <div class="navbar_component">
+            <div class="navbar_content">
+              <div class="navbar_brand">
+                <a href="/" class="navbar_logo-wrap w-inline-block"
+                  ><img src="../images/logo-2.svg" loading="lazy" alt="" class="navbar_logo"
+                /></a>
+                <div class="navbar_creative">
+                  <img src="../images/bar-code-1.svg" loading="lazy" alt="" class="navbar_barcode" />
+                  <div class="navbar_creative-text">Creative Studio</div>
+                </div>
+              </div>
+              <div class="navbar_links-menu">
+                <div class="navbar_links">
+                  <a href="/" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
+                    ><div class="navbar_link-texts">
+                      <div class="navbar_link-text _1">Home</div>
+                      <div class="navbar_link-text _2">Home</div>
+                    </div>
+                    <div class="navbar_link-dot"></div></a
+                  ><a href="/studio" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
+                    ><div class="navbar_link-texts">
+                      <div class="navbar_link-text _1">Studio</div>
+                      <div class="navbar_link-text _2">Studio</div>
+                    </div>
+                    <div class="navbar_link-dot"></div
+                  ></a>
+                  <div class="navbar_works-link">
+                    <a
+                      href="/works/1"
+                      data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace"
+                      class="navbar_link w-inline-block"
+                      ><div class="navbar_link-texts">
+                        <div class="navbar_link-text _1">Work</div>
+                        <div class="navbar_link-text _2">Work</div>
+                      </div></a
+                    >
+                    <div class="navbar_works-number-wrap"><div class="navbar_works-number">3</div></div>
+                  </div>
+                  <a href="/blog/1" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
+                    ><div class="navbar_link-texts">
+                      <div class="navbar_link-text _1">Blog</div>
+                      <div class="navbar_link-text _2">Blog</div>
+                    </div>
+                    <div class="navbar_link-dot"></div></a
+                  ><a
+                    href="/contact/1"
+                    data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace"
+                    class="navbar_link w-inline-block"
+                    ><div class="navbar_link-texts">
+                      <div class="navbar_link-text _1">Contact</div>
+                      <div class="navbar_link-text _2">Contact</div>
+                    </div>
+                    <div class="navbar_link-dot"></div
+                  ></a>
+                </div>
+                <!-- Bouton burger et menu plein écran (version mobile) -->
+                <div class="menu_component">
+                  <div
+                    fs-scrolldisable-media="(max-width: 767px)"
+                    fs-scrolldisable-element="toggle"
+                    data-w-id="5fdd110c-b4dc-4c3b-f311-33bd343dda78"
+                    class="hamburger"
+                  >
+                    <div class="hamburger_line _1"></div>
+                    <div class="hamburger_line _2"></div>
+                  </div>
+                  <div class="menu">
+                    <div class="menu_in">
+                      <div class="menu_content">
+                        <div class="menu_links">
+                          <a href="/" data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049" class="menu_link w-inline-block"
+                            ><div class="menu_link-texts">
+                              <div class="menu_link-text _1">Home</div>
+                              <div class="menu_link-text _2">Home</div>
+                            </div>
+                            <div class="menu_link-dot"></div></a
+                          ><a
+                            href="/studio"
+                            data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
+                            class="menu_link w-inline-block"
+                            ><div class="menu_link-texts">
+                              <div class="menu_link-text _1">Studio</div>
+                              <div class="menu_link-text _2">Studio</div>
+                            </div>
+                            <div class="menu_link-dot"></div></a
+                          ><a
+                            href="/works/1"
+                            data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
+                            class="menu_link w-inline-block"
+                            ><div class="menu_link-texts">
+                              <div class="menu_link-text _1">Work</div>
+                              <div class="menu_link-text _2">Work</div>
+                            </div>
+                            <div class="menu_link-dot"></div></a
+                          ><a
+                            href="/blog/1"
+                            data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
+                            class="menu_link w-inline-block"
+                            ><div class="menu_link-texts">
+                              <div class="menu_link-text _1">Blog</div>
+                              <div class="menu_link-text _2">Blog</div>
+                            </div>
+                            <div class="menu_link-dot"></div></a
+                          ><a
+                            href="/contact/1"
+                            data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
+                            class="menu_link w-inline-block"
+                            ><div class="menu_link-texts">
+                              <div class="menu_link-text _1">Contact</div>
+                              <div class="menu_link-text _2">Contact</div>
+                            </div>
+                            <div class="menu_link-dot"></div
+                          ></a>
+                        </div>
+                        <div class="menu_actions">
+                          <div class="menu_social-wrap">
+                            <div class="menu_buttons">
+                              <a
+                                href="https://webflow.com/templates/designers/templatesupply"
+                                data-wf--button--variant="grey"
+                                data-w-id="059e00b0-f64e-1901-eae8-f1971aea4566"
+                                class="button-secondary w-inline-block"
+                                ><div class="button_texts">
+                                  <div class="button_text _1">Buy template</div>
+                                  <div class="button_text _2">Buy template</div>
+                                </div>
+                                <div class="button-line_space blue-dark-36"></div>
+                                <div class="button-line_dot blue-dark-37">
+                                  <div class="button_dot"></div>
+                                  <div class="button_dot-scale"></div></div></a
+                              ><a
+                                href="https://www.template.supply/"
+                                data-wf--button--variant="grey"
+                                data-w-id="059e00b0-f64e-1901-eae8-f1971aea4566"
+                                target="_blank"
+                                class="button-secondary w-inline-block"
+                                ><div class="button_texts">
+                                  <div class="button_text _1">More templates</div>
+                                  <div class="button_text _2">More templates</div>
+                                </div>
+                                <div class="button-line_space blue-dark-36"></div>
+                                <div class="button-line_dot blue-dark-37">
+                                  <div class="button_dot"></div>
+                                  <div class="button_dot-scale"></div></div
+                              ></a>
+                            </div>
+                            <div class="menu_social">
+                              <a href="https://instagram.com" target="_blank" class="menu_social-link w-inline-block"
+                                ><img
+                                  loading="lazy"
+                                  src="../images/social-insta.svg"
+                                  alt=""
+                                  class="menu_social-icon" /></a
+                              ><a href="https://x.com" target="_blank" class="menu_social-link w-inline-block"
+                                ><img loading="lazy" src="../images/social-x.svg" alt="" class="menu_social-icon" /></a
+                              ><a href="https://dribbble.com" target="_blank" class="menu_social-link w-inline-block"
+                                ><img loading="lazy" src="../images/dribble.svg" alt="" class="menu_social-icon"
+                              /></a>
+                            </div>
+                          </div>
+                          <a
+                            data-w-id="5fdd110c-b4dc-4c3b-f311-33bd343dda97"
+                            href="/contact/2"
+                            class="menu_contact w-inline-block"
+                            ><img
+                              src="../images/link.png"
+                              loading="lazy"
+                              sizes="(max-width: 1400px) 100vw, 1400px"
+                              srcset="
+                                ../images/link-p-500.png   500w,
+                                ../images/link-p-800.png   800w,
+                                ../images/link-p-1080.png 1080w,
+                                ../images/link.png        1400w
+                              "
+                              alt=""
+                              class="menu_contact-img" />
+                            <div class="menu-contact-link">
+                              <div class="menu_contact-text">Contact</div>
+                              <img
+                                src="../images/arrow-white-diagonal.svg"
+                                loading="lazy"
+                                alt=""
+                                class="menu_contact-arrow"
+                              /></div
+                          ></a>
+                          <div class="menu_legal">
+                            <a
+                              href="/legal/privacy-policy"
+                              data-w-id="08715bc4-c4b7-73ba-45ba-b2d079cf51c2"
+                              class="menu_legal-link w-inline-block"
+                              ><div class="menu_legal-text">Privacy Policy</div>
+                              <div class="menu_legal-line grey"></div></a
+                            ><a
+                              href="/legal/terms-of-use"
+                              data-w-id="08715bc4-c4b7-73ba-45ba-b2d079cf51c2"
+                              class="menu_legal-link w-inline-block"
+                              ><div class="menu_legal-text">Terms of use</div>
+                              <div class="menu_legal-line grey"></div
+                            ></a>
+                          </div>
+                        </div>
+                        <div data-w-id="5fdd110c-b4dc-4c3b-f311-33bd343ddaa2" class="menu_close">
+                          <img src="../images/close.svg" loading="lazy" alt="" class="menu_close-icon" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="menu_bg-blur"></div>
+                </div>
+              </div>
+            </div>
+            <div class="navbar_line"></div>
+          </div>
+        </div>
+      </nav>
+      <!-- Effet de flou progressif sous la barre de navigation -->
+      <div style="--blur: 1rem; --ratio: 2" class="progressive-blur_wrap">
+        <div style="--i: 6" class="progressive-blur_panel is-1"></div>
+        <div style="--i: 5" class="progressive-blur_panel is-2"></div>
+        <div style="--i: 4" class="progressive-blur_panel is-3"></div>
+        <div style="--i: 3" class="progressive-blur_panel is-4"></div>
+        <div style="--i: 2" class="progressive-blur_panel is-5"></div>
+        <div style="--i: 1" class="progressive-blur_panel is-6"></div>
+        <div style="--i: 1" class="progressive-blur_panel is-7"></div>
+        <div style="--i: 1" class="progressive-blur_panel is-8"></div>
+        <div style="--i: 1" class="progressive-blur_panel is-9"></div>
+        <div style="--i: 1" class="progressive-blur_panel is-10"></div>
+      </div>
+      <!-- Contenu principal de la page -->
+      <div class="main-wrapper">
+        <!-- En-tête de la page : pastille « Blog » et titre « Articles » -->
+        <section class="section_blog-header">
+          <div class="padding-section-medium"></div>
+          <div class="padding-global">
+            <div class="container-large">
+              <div class="blog-header_content">
+                <div
+                  data-w-id="8836311a-475d-d195-6fc5-a18b162f2a6b"
+                  style="
+                    -webkit-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
+                      skew(0, 0);
+                    -moz-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
+                      skew(0, 0);
+                    -ms-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
+                      skew(0, 0);
+                    transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+                    opacity: 0;
+                  "
+                  class="label_wrap"
+                >
+                  <div class="label_dot"></div>
+                  <div class="text-style-label">Blog</div>
+                </div>
+                <div class="spacer-small"></div>
+                <div class="text-align-center">
+                  <h1
+                    data-w-id="c8b5f97c-e6af-837a-c901-26f1835543d7"
+                    style="
+                      -webkit-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
+                        skew(0, 0);
+                      -moz-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
+                        skew(0, 0);
+                      -ms-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
+                        skew(0, 0);
+                      transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+                      opacity: 0;
+                    "
+                  >
+                    Articles
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Liste des articles du blog (mise en page 3 : titre et résumé en haut, image et date en bas, liens d'exemple) -->
+        <section class="section_blog-list">
+          <div class="padding-section-xsmall is-mobile-small"></div>
+          <div class="padding-global is-mobile-tiny">
+            <div class="container-large">
+              <div
+                data-w-id="558bfc30-d68a-d6c9-cff8-70858be5d849"
+                style="
+                  -webkit-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
+                    skew(0, 0);
+                  -moz-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+                  -ms-transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+                  transform: translate3d(0, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+                  opacity: 0;
+                "
+                class="blog-list_wrapper w-dyn-list"
+              >
+                <div role="list" class="blog-list_list v3 w-dyn-items">
+                  <div role="listitem" class="blog-list_item w-dyn-item">
+                    <a aria-label="Blog post Item" href="#" class="blog-list_item-block w-inline-block"
+                      ><div class="blog-list_texts-v3">
+                        <h2 class="heading-style-h5">Nurturing brands through intentional design</h2>
+                        <p class="blog-list_description">
+                          Great brands don’t grow by accident. This piece reflects on how care, clarity, and thoughtful
+                          pacing are key to cultivating meaningful, lasting design.
+                        </p>
+                      </div>
+                      <div class="blog-list_bottom-wrap">
+                        <div class="blog-list_image-wrap">
+                          <img
+                            loading="lazy"
+                            src="../images/dsadas.webp"
+                            alt=""
+                            sizes="100vw"
+                            srcset="
+                              ../images/dsadas-p-500.webp   500w,
+                              ../images/dsadas-p-800.webp   800w,
+                              ../images/dsadas-p-1080.webp 1080w,
+                              ../images/dsadas.webp        1344w
+                            "
+                            class="blog-list_image"
+                          />
+                        </div>
+                        <div class="text-style-label">June 29, 2025</div>
+                      </div></a
+                    >
+                  </div>
+                  <div role="listitem" class="blog-list_item w-dyn-item">
+                    <a aria-label="Blog post Item" href="#" class="blog-list_item-block w-inline-block"
+                      ><div class="blog-list_texts-v3">
+                        <h2 class="heading-style-h5">The power of restraint in visual storytelling</h2>
+                        <p class="blog-list_description">
+                          Exploring how minimal forms, bold materials, and intentional whitespace can speak louder than
+                          complexity—especially in brand imagery that aims to be remembered.
+                        </p>
+                      </div>
+                      <div class="blog-list_bottom-wrap">
+                        <div class="blog-list_image-wrap">
+                          <img
+                            loading="lazy"
+                            src="../images/saddas.webp"
+                            alt=""
+                            sizes="100vw"
+                            srcset="
+                              ../images/saddas-p-500.webp   500w,
+                              ../images/saddas-p-800.webp   800w,
+                              ../images/saddas-p-1080.webp 1080w,
+                              ../images/saddas.webp        1344w
+                            "
+                            class="blog-list_image"
+                          />
+                        </div>
+                        <div class="text-style-label">June 30, 2025</div>
+                      </div></a
+                    >
+                  </div>
+                  <div role="listitem" class="blog-list_item w-dyn-item">
+                    <a aria-label="Blog post Item" href="#" class="blog-list_item-block w-inline-block"
+                      ><div class="blog-list_texts-v3">
+                        <h2 class="heading-style-h5">Balancing elegance and raw nature in brand expression</h2>
+                        <p class="blog-list_description">
+                          A look at how contrast—between refinement and wildness, minimalism and texture—can create
+                          emotionally resonant brand visuals that feel both elevated and grounded.
+                        </p>
+                      </div>
+                      <div class="blog-list_bottom-wrap">
+                        <div class="blog-list_image-wrap">
+                          <img
+                            loading="lazy"
+                            src="../images/man-20in-20wildflower-20field.webp"
+                            alt=""
+                            sizes="100vw"
+                            srcset="
+                              ../images/man-20in-20wildflower-20field-p-500.webp   500w,
+                              ../images/man-20in-20wildflower-20field-p-800.webp   800w,
+                              ../images/man-20in-20wildflower-20field-p-1080.webp 1080w,
+                              ../images/man-20in-20wildflower-20field-p-1600.webp 1600w,
+                              ../images/man-20in-20wildflower-20field-p-2000.webp 2000w,
+                              ../images/man-20in-20wildflower-20field.webp        2400w
+                            "
+                            class="blog-list_image"
+                          />
+                        </div>
+                        <div class="text-style-label">July 1, 2025</div>
+                      </div></a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-section-medium"></div>
+        </section>
+      </div>
+      <!-- Pied de page : liens, réseaux sociaux, newsletter, mentions légales -->
+      <footer class="footer">
+        <div class="padding-global is-tiny">
+          <div class="footer_wrap">
+            <div class="footer_component">
+              <div class="footer_main">
+                <div class="footer_links-groups">
+                  <div id="w-node-_49f89e0f-c321-7bff-a29b-8acdeddf7dc8-eddf7dc2" class="footer_group">
+                    <div class="footer_link-label">Pages</div>
+                    <div class="footer_lists">
+                      <div class="footer_links-list">
+                        <a href="/" class="footer_link">Home</a><a href="/studio" class="footer_link">Studio</a
+                        ><a href="#" class="footer_link">Work item</a>
+                      </div>
+                      <div class="footer_links-list">
+                        <a href="/works/1" class="footer_link">Works 1</a
+                        ><a href="/works/2" class="footer_link">Works 2</a
+                        ><a href="/works/3" class="footer_link">Works 3</a>
+                      </div>
+                      <div class="footer_links-list">
+                        <a href="/blog/1" class="footer_link">Blog 1</a><a href="/blog/2" class="footer_link">Blog 2</a
+                        ><a href="/blog/3" aria-current="page" class="footer_link w--current">Blog 3</a>
+                      </div>
+                      <div class="footer_links-list">
+                        <a href="/contact/1" class="footer_link">Contact 1</a
+                        ><a href="/contact/2" class="footer_link">Contact 2</a
+                        ><a href="/contact/3" class="footer_link">Contact 3</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="footer_secondary">
+                  <div class="footer_social">
+                    <a href="https://instagram.com" target="_blank" class="footer_social-link w-inline-block"
+                      ><img loading="lazy" src="../images/social-insta.svg" alt="" class="footer_social-icon" /></a
+                    ><a href="https://x.com" target="_blank" class="footer_social-link w-inline-block"
+                      ><img loading="lazy" src="../images/social-x.svg" alt="" class="footer_social-icon" /></a
+                    ><a href="https://dribbble.com/" target="_blank" class="footer_social-link w-inline-block"
+                      ><img loading="lazy" src="../images/dribble.svg" alt="" class="footer_social-icon"
+                    /></a>
+                  </div>
+                  <div class="footer_newsletter w-form">
+                    <form
+                      id="wf-form-Newsletter-form"
+                      name="wf-form-Newsletter-form"
+                      data-name="Newsletter form"
+                      method="get"
+                      class="footer_newsletter-form"
+                      data-wf-page-id="686c39a6fe51467aea53d714"
+                      data-wf-element-id="49f89e0f-c321-7bff-a29b-8acdeddf7df1"
+                    >
+                      <label for="email-3" class="field-label">Join the newsletter</label>
+                      <div class="footer_field-wrap">
+                        <input
+                          class="footer_field w-input"
+                          maxlength="256"
+                          name="Email"
+                          data-name="Email"
+                          placeholder="Email*"
+                          type="email"
+                          id="Email"
+                          required=""
+                        /><input
+                          type="submit"
+                          data-wait="Please wait..."
+                          class="footer_newsletter-button w-button"
+                          value="Subscribe"
+                        />
+                      </div>
+                    </form>
+                    <div class="form_success-message-2 w-form-done"><div>Your submission has been received!</div></div>
+                    <div class="form_error-message w-form-fail">
+                      <div>Oops! Something went wrong while submitting the form.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="footer_legal-links">
+                <div id="w-node-_49f89e0f-c321-7bff-a29b-8acdeddf7dfe-eddf7dc2" class="footer_legal-wrap">
+                  <div class="footer_copyright">© 2025 Alture</div>
+                  <div class="footer_legal-divider"></div>
+                  <div class="footer_copyright">
+                    Powered by <a href="https://webflow.com/" target="_blank" class="footer_template-link">Webflow</a>
+                  </div>
+                  <div class="footer_legal-divider"></div>
+                  <div class="footer_copyright">
+                    Created by
+                    <a href="https://www.template.supply/" target="_blank" class="footer_template-link"
+                      >Template Supply</a
+                    >
+                  </div>
+                </div>
+                <div id="w-node-_49f89e0f-c321-7bff-a29b-8acdeddf7e0b-eddf7dc2" class="footer_template-links">
+                  <a href="/template/style-guide" class="footer_template-link">Style guide</a
+                  ><a href="/template/licenses" class="footer_template-link">Licenses</a
+                  ><a href="/template/changelog" class="footer_template-link">Changelog</a
+                  ><a href="/template/instructions" class="footer_template-link">Instructions</a>
+                </div>
+              </div>
+            </div>
+            <div class="footer_brand">Alture<span class="footer_mark">®</span></div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- Scripts tiers : jQuery, Webflow et bibliothèques d'interaction -->
+    <script src="../js/jquery.js?site=6840876d4d1ed0e8e2a330b9" type="text/javascript"></script>
+    <script src="../js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript"></script>
+    <script src="../js/webflow.schunk.d61b41edd968cc6d.js" type="text/javascript"></script>
+    <script src="../js/webflow-script-2.js" type="text/javascript"></script>
+    <script src="../js/gsap.min.js" type="text/javascript"></script>
+    <!-- Initialisation de Lenis (défilement fluide) -->
+    <script>
+      // Initialize Lenis
+      const lenis = new Lenis({
+        smooth: true,
+        lerp: 0.1,
+        wheelMultiplier: 1,
+        infinite: false,
+      });
+
+      // Use requestAnimationFrame to continuously update the scroll
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    </script>
+      <script src="../js/header-scroll.js" type="text/javascript"></script>
+  </body>
+</html>
