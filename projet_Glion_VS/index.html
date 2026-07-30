@@ -302,7 +302,7 @@
           data-object-fit="cover"
         >
           <source
-            data-src="/projet_Glion_VS/vidéo/Teaser WEB_.mp4"
+            src="/projet_Glion_VS/vidéo/Teaser WEB_.mp4"
             data-wf-ignore="true"
           />
         </video>
@@ -1325,18 +1325,23 @@
         });
       });
     </script>
-    <!-- ===== Chargement différé des vidéos lourdes (hero, fond de la section Extrait, 3 vidéos
-         "extrait" de l'onglet Détails) =====
-         Elles n'ont pas de src au chargement (juste data-src). Assigner ce src trop tôt (pendant le
-         parsing initial, avant que wf:load ne se soit déjà déclenché) fait quand même attendre ces
-         vidéos par window.load, malgré l'absence de src dans le HTML brut — vérifié empiriquement,
-         ce n'était pas suffisant à soi seul. Il faut attendre que "load" se soit déjà déclenché avant
-         d'assigner le src, pour que la requête parte strictement après, sans jamais être comptée par
-         le navigateur comme une ressource bloquante. Qualité vidéo inchangée : seul le moment du
+    <!-- ===== Chargement différé des vidéos non visibles au premier affichage (fond de la section
+         Extrait plus bas dans la page, 3 vidéos "extrait" de l'onglet Détails) =====
+         Le rôle du preloader est d'attendre que le site soit vraiment prêt avant de révéler la page,
+         justement pour ne jamais montrer un écran noir à la place d'une vidéo pas encore chargée —
+         donc la vidéo du hero (visible dès la révélation) garde volontairement un vrai src et continue
+         de faire attendre wf:load, sans exception. Ces vidéos-ci en revanche ne sont visibles qu'après
+         un scroll ou un clic d'onglet : aucune raison de retenir le loader pour elles, elles n'ont
+         donc pas de src au chargement (juste data-src). Attention : assigner ce src trop tôt (pendant
+         le parsing initial, avant que "load" ne se soit déjà déclenché) fait quand même attendre ces
+         vidéos par window.load, malgré l'absence de src dans le HTML brut — vérifié empiriquement, ce
+         n'était pas suffisant à soi seul. Il faut attendre que "load" se soit déjà déclenché avant de
+         les assigner, pour que la requête parte strictement après, sans jamais être comptée par le
+         navigateur comme une ressource bloquante. Qualité vidéo inchangée : seul le moment du
          téléchargement change. -->
     <script>
       window.addEventListener("load", () => {
-        document.querySelectorAll(".video-services video, .video-hero video, .video-story video").forEach((video) => {
+        document.querySelectorAll(".video-services video, .video-story video").forEach((video) => {
           const source = video.querySelector("source[data-src]");
           if (!source) return;
           source.src = source.dataset.src;
