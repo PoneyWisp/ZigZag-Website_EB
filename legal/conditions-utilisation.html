@@ -80,6 +80,10 @@
         transition: transform .3s ease;
       }
 
+      .footer_intro-link:hover {
+        color: #ccfccc;
+      }
+
       .footer_intro-link:hover .footer_intro-arrow {
         transform: translateX(.25rem);
       }
@@ -97,7 +101,7 @@
       }
 
       .footer_link:hover {
-        color: var(--_colors---primary--white);
+        color: #ccfccc;
       }
 
       .footer_copyright {
@@ -109,11 +113,16 @@
       }
 
       .footer_template-link:hover {
-        color: var(--_colors---primary--white);
+        color: #ccfccc;
       }
 
       .footer_social-icon {
         filter: invert(1);
+      }
+
+      /* Le champ label héritait du noir par défaut du body : invisible sur le fond noir du footer */
+      .footer_newsletter .field-label {
+        color: var(--_colors---primary--white);
       }
 
       .footer_newsletter-button {

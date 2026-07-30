@@ -11,6 +11,7 @@
   const hero = document.querySelector(".section_home-header");
   const autoHideDelay = 4000; // ms d'inactivité avant masquage auto
   let hideTimer = null;
+  let isHovering = false;
 
   function heroHeight() {
     return hero ? hero.offsetHeight : window.innerHeight;
@@ -28,6 +29,10 @@
       return;
     }
 
+    // Tant que la souris est sur le header (ou le menu burger, imbriqué dedans),
+    // on ne le masque jamais : ni au scroll vers le bas, ni par inactivité.
+    if (isHovering) return;
+
     if (direction < 0) {
       nav.classList.remove("u-nav-hidden");
       scheduleHide();
@@ -36,6 +41,17 @@
       nav.classList.add("u-nav-hidden");
     }
   }
+
+  nav.addEventListener("mouseenter", () => {
+    isHovering = true;
+    clearTimeout(hideTimer);
+    nav.classList.remove("u-nav-hidden");
+  });
+
+  nav.addEventListener("mouseleave", () => {
+    isHovering = false;
+    scheduleHide();
+  });
 
   if (typeof lenis !== "undefined" && lenis && typeof lenis.on === "function") {
     lenis.on("scroll", (e) => update(e.scroll, e.direction));

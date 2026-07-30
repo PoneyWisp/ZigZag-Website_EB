@@ -107,6 +107,10 @@
         transition: transform .3s ease;
       }
 
+      .footer_intro-link:hover {
+        color: #ccfccc;
+      }
+
       .footer_intro-link:hover .footer_intro-arrow {
         transform: translateX(.25rem);
       }
@@ -124,7 +128,7 @@
       }
 
       .footer_link:hover {
-        color: var(--_colors---primary--white);
+        color: #ccfccc;
       }
 
       .footer_copyright {
@@ -136,11 +140,16 @@
       }
 
       .footer_template-link:hover {
-        color: var(--_colors---primary--white);
+        color: #ccfccc;
       }
 
       .footer_social-icon {
         filter: invert(1);
+      }
+
+      /* Le champ label héritait du noir par défaut du body : invisible sur le fond noir du footer */
+      .footer_newsletter .field-label {
+        color: var(--_colors---primary--white);
       }
 
       .footer_newsletter-button {
@@ -623,13 +632,13 @@
                 </div>
               </div>
               <div class="padding-section-medium"></div>
-              <!-- attente contenu : reste du template Alture (images stock + marquee "I like to move it"), pas de rapport avec ZigZag
+              <!-- Traînée d'images (équipe + tournages BTS) qui suit la souris, cloné/animé par le script GSAP plus bas -->
               <div class="interaction_visual_wrap">
                 <div class="interaction_template">
                   <div class="interaction_img_wrap">
                     <img
                       alt=""
-                      src="https://cdn.prod.website-files.com/plugins/Basic/assets/placeholder.60f9b1840c.svg"
+                      src="images/20260719_PhotoSiteWebZigZag_0177.webp"
                       class="interaction_img"
                     />
                   </div>
@@ -638,36 +647,37 @@
               <div class="interaction_cms_wrap">
                 <div class="interaction_cms_list">
                   <div class="interaction_cms_item">
-                    <img alt="" src="images/smartwatch-20close-up-20-1-.webp" class="interaction_cms-img_img" />
+                    <img alt="" src="images/20260719_PhotoSiteWebZigZag_0177.webp" class="interaction_cms-img_img" />
                   </div>
                   <div class="interaction_cms_item">
-                    <img alt="" src="images/001_copy_3-1170x780-20-1-.webp" class="interaction_cms-img_img" />
+                    <img alt="" src="images/20260622-DSC02233_Maxime-Gubler.jpg" class="interaction_cms-img_img" />
                   </div>
                   <div class="interaction_cms_item">
-                    <img alt="" src="images/dynamic-20motion-20blur-1.webp" class="interaction_cms-img_img" />
+                    <img alt="" src="images/bloc02-bts-sam-shaper.webp" class="interaction_cms-img_img" />
                   </div>
                   <div class="interaction_cms_item">
-                    <img
-                      alt=""
-                      src="images/presentation_hall_mockup-1170x780.webp"
-                      class="interaction_cms-img_img"
-                    />
+                    <img alt="" src="images/Blue_Lake_Stud_07-web.jpg" class="interaction_cms-img_img" />
                   </div>
                   <div class="interaction_cms_item">
-                    <img alt="" src="images/image002-1170x780.webp" class="interaction_cms-img_img" />
+                    <img alt="" src="images/Tino_son-web.jpg" class="interaction_cms-img_img" />
+                  </div>
+                  <div class="interaction_cms_item">
+                    <img alt="" src="images/FAQ.jpg" class="interaction_cms-img_img" />
+                  </div>
+                  <div class="interaction_cms_item">
+                    <img alt="" src="/images/affiche_glion.jpg" class="interaction_cms-img_img" />
                   </div>
                 </div>
               </div>
               <div data-w-id="a96576e7-0ca7-fa5e-89ee-4643797a6828" class="cta_note">
                 <div class="note-marquee_component">
                   <div class="note-marquee_in">
-                    <div class="note-marquee_text">I like to move it move it —</div>
-                    <div class="note-marquee_text">I like to move it move it  —</div>
-                    <div class="note-marquee_text">U like to... move it —</div>
+                    <div class="note-marquee_text">Photo — Vidéo — Audio — Web —</div>
+                    <div class="note-marquee_text">Photo — Vidéo — Audio — Web —</div>
+                    <div class="note-marquee_text">Photo — Vidéo — Audio — Web —</div>
                   </div>
                 </div>
               </div>
-              -->
             </div>
           </div>
         </section>
@@ -804,6 +814,8 @@
     </script>
     <!-- Animation de suivi de souris dans la section CTA (GSAP) -->
     <script>
+      // Effet purement décoratif : désactivé si l'utilisateur préfère un mouvement réduit
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       $(".section_cta").each(function () {
         // Sélectionne les éléments clés de chaque section CTA
         let visualWrap = $(this).find(".interaction_visual_wrap"); // Conteneur où les clones d'image seront animés
@@ -859,6 +871,7 @@
           }
         });
       });
+      }
     </script>
       <script src="js/header-scroll.js" type="text/javascript"></script>
     <!-- Interaction du wordmark "verre liquide" du footer (copié tel quel depuis index.html/contact.html) -->

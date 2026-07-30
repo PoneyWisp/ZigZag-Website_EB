@@ -17,7 +17,7 @@
       property="og:description"
     />
     <meta
-      content="https://zigzagvisuals.ch/images/og-zigzag-equipe.jpg"
+      content="https://zigzagvisuals.ch/images/affiche_glion.jpg"
       property="og:image"
     />
     <meta content="https://zigzagvisuals.ch/projet_Glion_VS/index.html" property="og:url" />
@@ -155,6 +155,54 @@
       href="/images/ZigZag-Visuals-Monogramme.png"
       rel="apple-touch-icon"
     />
+    <!-- ===== Notice de chargement : petit signal discret en haut à droite du preloader, pour
+         rassurer sur les connexions lentes pendant l'attente avant que l'animation Webflow ne
+         démarre (wf:load). Position absolue avec inset explicite (le padding du parent .preloader
+         ne s'applique pas à un enfant absolument positionné). ===== -->
+    <style>
+      .preloader-notice {
+        position: absolute;
+        top: 32px;
+        right: var(--_spacing---site-padding--main);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--_text---label-small--font-family);
+        font-size: var(--_text---label-small--font-size);
+        line-height: var(--_text---label-small--line-height);
+        font-weight: var(--_text---label-small--font-weight);
+        letter-spacing: var(--_text---label-small--letter-spacing);
+        text-transform: uppercase;
+        color: var(--_colors---color--yellow);
+        opacity: 0.75;
+        white-space: nowrap;
+      }
+
+      .preloader-notice-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--_colors---color--yellow);
+        animation: preloader-notice-pulse 1.6s ease-in-out infinite;
+      }
+
+      @keyframes preloader-notice-pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .preloader-notice-dot {
+          animation: none !important;
+          opacity: 0.7;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- ===== NAVIGATION : barre fixe en haut, liens vers chaque section (Base, Makes, Skills, Story, Signal) ===== -->
@@ -219,6 +267,10 @@
          "loading=lazy" non plus : dans un conteneur display:none au départ, le navigateur
          pouvait retarder son chargement jusqu'à ce que le JS rende le conteneur visible. -->
     <div class="preloader" style="display: flex">
+      <div class="preloader-notice">
+        <span class="preloader-notice-dot"></span>
+        Chargement en cours
+      </div>
       <div class="wrap-preloader-logo">
         <div class="logo-wrap-hero preloader-logo">
           <img
@@ -250,7 +302,7 @@
           data-object-fit="cover"
         >
           <source
-            src="/projet_Glion_VS/vidéo/Teaser WEB_.mp4"
+            data-src="/projet_Glion_VS/vidéo/Teaser WEB_.mp4"
             data-wf-ignore="true"
           />
         </video>
@@ -955,11 +1007,7 @@
             data-object-fit="cover"
           >
             <source
-              src="/projet_Glion_VS/vidéo/Teaser WEB_.mp4"
-              data-wf-ignore="true"
-            />
-            <source
-              src="/projet_Glion_VS/vidéo/Teaser WEB_.mp4"
+              data-src="/projet_Glion_VS/vidéo/Teaser WEB_.mp4"
               data-wf-ignore="true"
             />
           </video>
@@ -1277,19 +1325,24 @@
         });
       });
     </script>
-    <!-- ===== Chargement différé des 3 vidéos "extrait" (onglet Détails) =====
-         Elles n'ont pas de src au chargement (juste data-src), donc le preloader
-         (qui attend que toutes les ressources déclarées dans le HTML soient prêtes)
-         ne les attend plus. On déclenche leur téléchargement ici, en parallèle du
-         reste : elles continuent de charger en arrière-plan sans bloquer l'affichage
-         de la page. -->
+    <!-- ===== Chargement différé des vidéos lourdes (hero, fond de la section Extrait, 3 vidéos
+         "extrait" de l'onglet Détails) =====
+         Elles n'ont pas de src au chargement (juste data-src). Assigner ce src trop tôt (pendant le
+         parsing initial, avant que wf:load ne se soit déjà déclenché) fait quand même attendre ces
+         vidéos par window.load, malgré l'absence de src dans le HTML brut — vérifié empiriquement,
+         ce n'était pas suffisant à soi seul. Il faut attendre que "load" se soit déjà déclenché avant
+         d'assigner le src, pour que la requête parte strictement après, sans jamais être comptée par
+         le navigateur comme une ressource bloquante. Qualité vidéo inchangée : seul le moment du
+         téléchargement change. -->
     <script>
-      document.querySelectorAll(".video-services video").forEach((video) => {
-        const source = video.querySelector("source[data-src]");
-        if (!source) return;
-        source.src = source.dataset.src;
-        video.load();
-        video.play().catch(() => {});
+      window.addEventListener("load", () => {
+        document.querySelectorAll(".video-services video, .video-hero video, .video-story video").forEach((video) => {
+          const source = video.querySelector("source[data-src]");
+          if (!source) return;
+          source.src = source.dataset.src;
+          video.load();
+          video.play().catch(() => {});
+        });
       });
     </script>
     <style>

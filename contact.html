@@ -82,6 +82,10 @@
         transition: transform .3s ease;
       }
 
+      .footer_intro-link:hover {
+        color: #ccfccc;
+      }
+
       .footer_intro-link:hover .footer_intro-arrow {
         transform: translateX(.25rem);
       }
@@ -99,7 +103,7 @@
       }
 
       .footer_link:hover {
-        color: var(--_colors---primary--white);
+        color: #ccfccc;
       }
 
       .footer_copyright {
@@ -111,11 +115,16 @@
       }
 
       .footer_template-link:hover {
-        color: var(--_colors---primary--white);
+        color: #ccfccc;
       }
 
       .footer_social-icon {
         filter: invert(1);
+      }
+
+      /* Le champ label héritait du noir par défaut du body : invisible sur le fond noir du footer */
+      .footer_newsletter .field-label {
+        color: var(--_colors---primary--white);
       }
 
       .footer_newsletter-button {
@@ -378,13 +387,13 @@
         color: var(--_colors---grey--500);
       }
 
-      /* Composition photo statique (pas de rotation JS cassée à reproduire) : 1 photo dominante + 3 secondaires, toujours encadrées */
+      /* Composition photo statique (pas de rotation JS cassée à reproduire) : photo dominante en paysage (même largeur que les deux photos de gauche)
+         + 2 portraits en dessous + 1 photo allongée sur toute la hauteur à droite, toujours encadrées. */
       .contact-visual_grid {
         display: grid;
-        grid-template-columns: 1.4fr 1fr;
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 20rem 13rem;
         gap: var(--fixed--0-5rem);
-        height: 34rem;
       }
 
       .contact-visual_item {
@@ -397,13 +406,13 @@
       }
 
       .contact-visual_item.is-main {
-        grid-column: 1;
-        grid-row: 1 / 4;
+        grid-column: 1 / 3;
+        grid-row: 1;
       }
 
       .contact-visual_item.is-side-1 {
-        grid-column: 2;
-        grid-row: 1;
+        grid-column: 1;
+        grid-row: 2;
       }
 
       .contact-visual_item.is-side-2 {
@@ -412,8 +421,8 @@
       }
 
       .contact-visual_item.is-side-3 {
-        grid-column: 2;
-        grid-row: 3;
+        grid-column: 3;
+        grid-row: 1 / 3;
       }
 
       .contact-visual_img {
@@ -438,8 +447,7 @@
       @media screen and (max-width: 767px) {
         .contact-visual_grid {
           grid-template-columns: 1fr;
-          grid-template-rows: 16rem repeat(3, 10rem);
-          height: auto;
+          grid-template-rows: 16rem 10rem 10rem 20rem;
         }
 
         .contact-visual_item.is-main,
@@ -725,7 +733,7 @@
                     <div class="contact-info_row-body">
                       <div class="contact-info_row-label">À propos des demandes</div>
                       <p class="contact-info_row-about">
-                        Pour toute demande de projet, écrivez-nous — nous répondons sous 48h.
+                        Pour toute demande de projet, écrivez-nous — On vous répond sous 48h.
                       </p>
                     </div>
                   </div>
@@ -736,19 +744,11 @@
                     <img
                       src="images/20260719_PhotoSiteWebZigZag_0177.webp"
                       loading="lazy"
-                      alt="Studio ZigZag Visuals"
+                      alt="L'équipe ZigZag Visuals au bord du lac"
                       class="contact-visual_img"
                     />
                   </div>
                   <div class="contact-visual_item is-side-1">
-                    <img
-                      src="images/equipe-stud.jpeg"
-                      loading="lazy"
-                      alt="L'équipe ZigZag Visuals en studio"
-                      class="contact-visual_img"
-                    />
-                  </div>
-                  <div class="contact-visual_item is-side-2">
                     <img
                       src="images/Vidéo_Cadre.jpeg"
                       loading="lazy"
@@ -756,11 +756,19 @@
                       class="contact-visual_img"
                     />
                   </div>
-                  <div class="contact-visual_item is-side-3">
+                  <div class="contact-visual_item is-side-2">
                     <img
                       src="images/Tino_son-web.jpg"
                       loading="lazy"
                       alt="Prise de son ZigZag Visuals"
+                      class="contact-visual_img"
+                    />
+                  </div>
+                  <div class="contact-visual_item is-side-3">
+                    <img
+                      src="images/equipe-stud-tall.webp"
+                      loading="lazy"
+                      alt="Portrait collectif de l'équipe ZigZag Visuals au complet"
                       class="contact-visual_img"
                     />
                   </div>

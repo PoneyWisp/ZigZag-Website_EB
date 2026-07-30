@@ -790,6 +790,25 @@
         }
       }
     </style>
+    <!-- Navigation : le survol souris fait déjà glisser le texte vers la couleur accent et apparaître
+         un point, mais ce n'était jamais câblé au clavier — Tab retombait sur le rectangle bleu par
+         défaut du navigateur, en rupture totale avec le design. Le survol est piloté en JS (Webflow IX2
+         met à jour des styles inline via GSAP, pas de vraies transitions CSS), donc une règle CSS
+         :focus-visible seule ne peut pas gagner face à ces styles inline : on bascule une classe en JS
+         (voir IIFE "Focus clavier nav" en bas de page) et on force la même valeur finale en !important,
+         seul moyen de passer devant un style inline sans dupliquer toute l'animation GSAP. -->
+    <style>
+      .navbar_link:focus-visible {
+        outline: none;
+      }
+      .navbar_link.is-kbd-focus .navbar_link-text {
+        transform: translateY(-100%) !important;
+      }
+      .navbar_link.is-kbd-focus .navbar_link-dot {
+        opacity: 1 !important;
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1) !important;
+      }
+    </style>
     <!-- Hero plein écran : vidéo de fond, lockup centré, indicateur de scroll discret -->
     <style>
       .sr-only {
@@ -847,6 +866,32 @@
           position: absolute;
           inset: 0;
           min-height: 0;
+        }
+      }
+      /* Mobile/tablette uniquement : sur desktop le lockup sert de masthead en
+         haut, mais sur écran étroit ce même positionnement le fait chevaucher
+         les visages de la photo d'équipe. On le descend à hauteur du bassin,
+         où la photo est dégagée. .brand-lockup étant partagé avec le loader,
+         ce dernier atterrit désormais au même endroit sur mobile/tablette —
+         la translation GSAP (js/preloader.js) reste relative à cette position
+         de repos, donc aucun changement JS n'est nécessaire pour rester aligné. */
+      @media screen and (max-width: 991px) {
+        .brand-lockup {
+          position: absolute;
+          left: 50%;
+          top: 66%;
+          transform: translate(-50%, -50%);
+        }
+      }
+      /* En dessous de 767px, .home-header_hero-content colle à la hauteur
+         réelle de la photo (aspect-ratio 1920/1280, donc largeur / 1.5) au lieu
+         de 100vh — alors que .preloader, lui, reste plein écran (100vh). Un
+         même "top: 76%" ne pointe donc plus vers le même endroit à cette
+         largeur : on recale le loader sur la hauteur réelle du hero, exprimée
+         en vw puisque la hauteur de la photo dépend de la largeur d'écran. */
+      @media screen and (max-width: 767px) {
+        .preloader .brand-lockup {
+          top: calc(100vw / 1.5 * 0.66);
         }
       }
       .home-header_hero-scrim {
@@ -1209,12 +1254,17 @@
         overflow: hidden;
         border-radius: var(--border-radius--large);
         background-color: var(--_colors---grey--900);
+        /* Fermeture : rythme conservé tel quel (déjà jugé bon) */
         transition: flex-grow .6s cubic-bezier(.22, 1, .36, 1);
       }
 
-      .services_panel:hover,
+      /* Ouverture : volontairement plus lente et posée que la fermeture, pour se rapprocher du rythme
+         cinématique de "Pourquoi Nous" plutôt que de "claquer" comme avant. Ouverture pilotée uniquement
+         par .is-open (géré en JS au survol ET au clic) — plus de :hover CSS pur ici, pour garantir qu'un
+         seul panneau ne peut jamais être ouvert à la fois, même quand la souris passe vite de l'un à l'autre. */
       .services_panel.is-open {
         flex-grow: 14;
+        transition: flex-grow 1.1s cubic-bezier(.22, 1, .36, 1);
       }
 
       .services_trigger {
@@ -1234,7 +1284,6 @@
         transition: opacity .3s ease;
       }
 
-      .services_panel:hover .services_trigger,
       .services_panel.is-open .services_trigger {
         opacity: 0;
         pointer-events: none;
@@ -1296,9 +1345,10 @@
         transition: opacity .5s ease;
       }
 
-      .services_panel:hover .services_panel-media,
       .services_panel.is-open .services_panel-media {
         opacity: 1;
+        /* Léger décalage : la photo commence à apparaître juste après que le panneau ait entamé son élargissement, plutôt que tout en même temps */
+        transition: opacity .9s ease .15s;
       }
 
       .services_panel-img {
@@ -1327,10 +1377,11 @@
         transition: opacity .45s ease, transform .45s ease;
       }
 
-      .services_panel:hover .services_panel-glass,
       .services_panel.is-open .services_panel-glass {
         opacity: 1;
         transform: none;
+        /* La carte de texte arrive en dernier dans la séquence : panneau qui s'élargit → photo qui apparaît → texte */
+        transition: opacity .8s ease .3s, transform .8s ease .3s;
       }
 
       .services_panel-num {
@@ -1488,41 +1539,37 @@
         text-align: left;
       }
 
-      /* Couleur "sea" : vraie couleur de marque retrouvée dans l'ancien projet zigzag-website (#01514E), choisie en clin d'œil à la photo au bord du lac, propre à la FAQ (ni le mint du footer, ni l'orange des Services) */
+      /* Couleur "sea" : vraie couleur de marque retrouvée dans l'ancien projet zigzag-website (#01514E), choisie en clin d'œil à la photo au bord du lac, propre à la FAQ (ni le mint du footer, ni l'orange des Services).
+         Le chiffre garde toujours sa taille et sa position normales (aucun agrandissement, aucun risque de chevaucher le texte). La touche "tech" vient de deux détails discrets : le poids de la police varie (Roboto Mono VF est une vraie police variable, 100-700, donc la graisse s'anime nativement, sans changer la largeur des caractères) et un petit trait se dessine sous le chiffre — deux micro-signaux au lieu d'un simple aplat de couleur. */
       .faq_row-num {
+        position: relative;
         flex: 0 0 auto;
         width: 1.5rem;
         font-family: var(--_typography---font-family--detail);
         font-size: var(--fixed--0-875rem);
+        font-weight: 400;
         color: var(--_colors---grey--300);
-        transition: color .3s ease, opacity .3s ease;
+        transition: color .4s ease, font-weight .4s ease;
+      }
+
+      .faq_row-num::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -.375rem;
+        width: 0%;
+        height: 1px;
+        background-color: currentColor;
+        transition: width .4s ease;
       }
 
       .faq_row.is-open .faq_row-num {
         color: #01514e;
-        opacity: 0;
+        font-weight: 700;
       }
 
-      /* Chiffre fantôme : reprend le numéro en très grand (échelle liée au nombre d'or, 96px / φ ≈ 60px), en filigrane derrière la question active — crée un vrai palier de hiérarchie entre le titre (96px) et le texte courant (18-22px) */
-      .faq_row-ghost {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        z-index: 0;
-        transform: translateY(-50%) scale(.9);
-        font-family: var(--_typography---font-family--detail);
-        font-size: 3.75rem;
-        line-height: 1;
-        color: var(--_colors---grey--100);
-        opacity: 0;
-        pointer-events: none;
-        user-select: none;
-        transition: opacity .4s ease, transform .4s ease;
-      }
-
-      .faq_row.is-open .faq_row-ghost {
-        opacity: 1;
-        transform: translateY(-50%) scale(1);
+      .faq_row.is-open .faq_row-num::after {
+        width: 100%;
       }
 
       .faq_row-question {
@@ -1580,8 +1627,13 @@
         height: 32rem;
         margin-top: -12rem;
         margin-right: calc(var(--fixed--3rem) * -1);
-        border-radius: var(--border-radius--large) 0 0 var(--border-radius--large);
+        border-radius: var(--border-radius--large);
         overflow: clip;
+        /* Bug Safari : un enfant flouté (filter:blur sur .faq_visual-img) peut "s'échapper" du clip arrondi du parent et
+           retomber sur un rectangle net aux coins carrés. Le masque ci-dessous force Safari à recomposer correctement
+           le calque flouté à l'intérieur du contour arrondi — sans effet visuel sur les autres navigateurs. */
+        -webkit-mask-image: -webkit-radial-gradient(white, black);
+        mask-image: radial-gradient(white, black);
       }
 
       .faq_visual-img {
@@ -1672,8 +1724,8 @@
         .faq_row-icon::before,
         .faq_row-icon::after,
         .faq_row-num,
-        .faq_row-question,
-        .faq_row-ghost {
+        .faq_row-num::after,
+        .faq_row-question {
           transition: none !important;
         }
       }
@@ -1713,6 +1765,10 @@
         transition: transform .3s ease;
       }
 
+      .footer_intro-link:hover {
+        color: #ccfccc;
+      }
+
       .footer_intro-link:hover .footer_intro-arrow {
         transform: translateX(.25rem);
       }
@@ -1730,7 +1786,7 @@
       }
 
       .footer_link:hover {
-        color: var(--_colors---primary--white);
+        color: #ccfccc;
       }
 
       .footer_copyright {
@@ -1742,11 +1798,16 @@
       }
 
       .footer_template-link:hover {
-        color: var(--_colors---primary--white);
+        color: #ccfccc;
       }
 
       .footer_social-icon {
         filter: invert(1);
+      }
+
+      /* Le champ label héritait du noir par défaut du body : invisible sur le fond noir du footer */
+      .footer_newsletter .field-label {
+        color: var(--_colors---primary--white);
       }
 
       .footer_newsletter-button {
@@ -2559,17 +2620,10 @@
             <div class="why-us_sticky">
               <div class="why-us_stage" data-index="0">
                 <img
-                  src="images/golden-20adorned-20person-p-1600.webp"
+                  src="images/ski-bts.webp"
                   loading="lazy"
                   sizes="100vw"
-                  srcset="
-                    images/golden-20adorned-20person-p-800.webp   800w,
-                    images/golden-20adorned-20person-p-1080.webp 1080w,
-                    images/golden-20adorned-20person-p-1600.webp 1600w,
-                    images/golden-20adorned-20person-p-2000.webp 2000w,
-                    images/golden-20adorned-20person.webp        2400w
-                  "
-                  alt="Portrait éditorial en lumière dorée, image de vitrine provisoire"
+                  alt="Interview filmée en intérieur, tournage ZigZag Visuals"
                   class="why-us_stage-img"
                 />
                 <div class="why-us_stage-scrim"></div>
@@ -2582,38 +2636,26 @@
 
               <div class="why-us_stage" data-index="1">
                 <img
-                  src="images/man-1-final-p-1600.webp"
+                  src="images/FAQ.jpg"
                   loading="lazy"
                   sizes="100vw"
-                  srcset="
-                    images/man-1-final-p-800.webp   800w,
-                    images/man-1-final-p-1080.webp 1080w,
-                    images/man-1-final-p-1600.webp 1600w,
-                    images/man-1-final-p-2000.webp 2000w
-                  "
-                  alt="Portrait éditorial, image de vitrine provisoire"
+                  alt="L'équipe ZigZag Visuals"
                   class="why-us_stage-img"
                 />
                 <div class="why-us_stage-scrim"></div>
                 <div class="why-us_stage-content">
                   <div class="why-us_stage-num">02</div>
                   <h3 class="why-us_stage-title">Un réseau entier de prestataires</h3>
-                  <p class="why-us_stage-text">Print, illustration, motion, rédaction : le bon talent existe déjà chez ZigZag ou parmi nos amis du collectif.</p>
+                  <p class="why-us_stage-text">Print, illustration, motion, rédaction : le bon talent existe déjà chez ZigZag ou parmi nos ami·e·s du collectif.</p>
                 </div>
               </div>
 
               <div class="why-us_stage" data-index="2">
                 <img
-                  src="images/woman-final-p-1600.jpg"
+                  src="images/prof-bts.webp"
                   loading="lazy"
                   sizes="100vw"
-                  srcset="
-                    images/woman-final-p-800.jpg   800w,
-                    images/woman-final-p-1080.jpg 1080w,
-                    images/woman-final-p-1600.jpg 1600w,
-                    images/woman-final-p-2000.jpg 2000w
-                  "
-                  alt="Portrait éditorial, image de vitrine provisoire"
+                  alt="Équipe ZigZag Visuals en tournage dans une salle de classe"
                   class="why-us_stage-img"
                 />
                 <div class="why-us_stage-scrim"></div>
@@ -2795,7 +2837,7 @@
                   <div class="services_panel-glass">
                     <div class="services_panel-num">02</div>
                     <h3 class="services_panel-title">Audio</h3>
-                    <p class="services_panel-desc">Des paysages sonores immersifs qui donnent du relief à chaque projet — une oreille de confiance, en interne, du premier enregistrement au mixage final.</p>
+                    <p class="services_panel-desc">Des paysages sonores immersifs qui donnent du relief à chaque projet ; une oreille de confiance, en interne, du premier enregistrement au mixage final.</p>
                   </div>
                 </div>
 
@@ -2818,7 +2860,7 @@
                   <div class="services_panel-glass">
                     <div class="services_panel-num">03</div>
                     <h3 class="services_panel-title">Vidéographie</h3>
-                    <p class="services_panel-desc">Vos projets mis en mouvement, image par image, plan par plan — de l'écriture au montage, jusqu'à la diffusion.</p>
+                    <p class="services_panel-desc">Vos projets mis en mouvement, image par image, plan par plan, de l'écriture au montage, jusqu'à la diffusion.</p>
                   </div>
                 </div>
 
@@ -2841,14 +2883,14 @@
                   <div class="services_panel-glass">
                     <div class="services_panel-num">04</div>
                     <h3 class="services_panel-title">Studio</h3>
-                    <p class="services_panel-desc">Un espace dédié à la création — photographie, vidéo et son — pleinement équipé, avec un accompagnement de A à Z.</p>
+                    <p class="services_panel-desc">Un espace dédié à la création ; photographie, vidéo et son, pleinement équipé, avec un accompagnement de A à Z.</p>
                   </div>
                 </div>
               </div>
 
               <div class="spacer-large is-tablet-smaller"></div>
               <p class="services_footnote">
-                Et tout le reste — print, illustration, motion, web, rédaction — via nos amis du collectif*.
+                Et tout le reste ; print, illustration, motion, web, rédaction, etc <br> via nos ami·e·s du collectif*.
               </p>
 
               <div class="spacer-large is-tablet-smaller"></div>
@@ -3522,7 +3564,6 @@
               <div class="faq_component">
                 <div class="faq_list">
                   <div class="faq_row" data-index="0">
-                    <span class="faq_row-ghost" aria-hidden="true">01</span>
                     <button type="button" class="faq_row-head" aria-expanded="false">
                       <span class="faq_row-num">01</span>
                       <span class="faq_row-question">Comment se déroule un projet avec vous ?</span>
@@ -3530,7 +3571,6 @@
                     </button>
                   </div>
                   <div class="faq_row" data-index="1">
-                    <span class="faq_row-ghost" aria-hidden="true">02</span>
                     <button type="button" class="faq_row-head" aria-expanded="false">
                       <span class="faq_row-num">02</span>
                       <span class="faq_row-question">Travaillez-vous uniquement en collectif ?</span>
@@ -3538,7 +3578,6 @@
                     </button>
                   </div>
                   <div class="faq_row" data-index="2">
-                    <span class="faq_row-ghost" aria-hidden="true">03</span>
                     <button type="button" class="faq_row-head" aria-expanded="false">
                       <span class="faq_row-num">03</span>
                       <span class="faq_row-question">Combien coûte un projet ?</span>
@@ -3546,7 +3585,6 @@
                     </button>
                   </div>
                   <div class="faq_row" data-index="3">
-                    <span class="faq_row-ghost" aria-hidden="true">04</span>
                     <button type="button" class="faq_row-head" aria-expanded="false">
                       <span class="faq_row-num">04</span>
                       <span class="faq_row-question">Et si le service dont j'ai besoin n'est pas mentionné ?</span>
@@ -4078,25 +4116,54 @@
         );
       })();
     </script>
-    <!-- Interactions de la section Services : bascule "is-open" au clic (le survol desktop est géré en CSS pur, sans JS) -->
+    <!-- Interactions de la section Services : bascule "is-open" au survol ET au clic, toutes deux pilotées par la même fonction JS (plus de :hover CSS pur). Avant, le survol (CSS) et le clic (JS) étaient deux mécanismes indépendants qui pouvaient chacun ouvrir un panneau différent en même temps si la souris passait vite de l'un à l'autre ; ici il n'y a qu'une seule source de vérité, donc un seul panneau ne peut jamais être ouvert à la fois. Le clic "épingle" un panneau : il reste ouvert même si la souris repasse ensuite sur un autre puis quitte la rangée -->
     <script>
       (function () {
+        var row = document.querySelector(".services_row");
         var panels = document.querySelectorAll(".services_panel");
-        if (!panels.length) return;
+        if (!row || !panels.length) return;
+
+        var pinned = null;
+        var hoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+        function show(panel) {
+          panels.forEach(function (p) {
+            var isThis = p === panel;
+            p.classList.toggle("is-open", isThis);
+            var t = p.querySelector(".services_trigger");
+            if (t) t.setAttribute("aria-expanded", String(isThis));
+          });
+        }
+
+        function hideAll() {
+          panels.forEach(function (p) {
+            p.classList.remove("is-open");
+            var t = p.querySelector(".services_trigger");
+            if (t) t.setAttribute("aria-expanded", "false");
+          });
+        }
 
         panels.forEach(function (panel) {
-          // Écouteur sur le panneau entier (pas seulement le bouton) : une fois le panneau ouvert au survol,
-          // son bouton passe en pointer-events:none pour ne pas gêner le contenu, un clic doit donc pouvoir
-          // atteindre n'importe quel élément visible du panneau pour "épingler" l'état ouvert.
           panel.addEventListener("click", function () {
-            panels.forEach(function (p) {
-              var isThis = p === panel;
-              p.classList.toggle("is-open", isThis);
-              var t = p.querySelector(".services_trigger");
-              if (t) t.setAttribute("aria-expanded", String(isThis));
-            });
+            pinned = panel;
+            show(panel);
           });
+          if (hoverCapable) {
+            panel.addEventListener("mouseenter", function () {
+              show(panel);
+            });
+          }
         });
+
+        if (hoverCapable) {
+          row.addEventListener("mouseleave", function () {
+            if (pinned) {
+              show(pinned);
+            } else {
+              hideAll();
+            }
+          });
+        }
       })();
     </script>
     <!-- Interactions de la section FAQ : ouvrir une question floute la photo et affiche la réponse par-dessus ; une seule question ouverte à la fois -->
@@ -4176,6 +4243,21 @@
       })();
     </script>
     <script src="js/header-scroll.js" type="text/javascript"></script>
+    <!-- Focus clavier nav : le survol souris (.navbar_link) déclenche déjà une interaction Webflow IX2
+         qui pilote le point et le texte accent via des styles inline (GSAP), donc invisible au clavier.
+         On bascule une classe sur focus/blur (uniquement quand :focus-visible, pas au clic souris) que
+         le CSS force en !important pour rejoindre exactement le même état visuel — voir le bloc de
+         style juste avant la section Hero. -->
+    <script>
+      (function () {
+        document.querySelectorAll(".navbar_link").forEach((link) => {
+          link.addEventListener("focus", () => {
+            if (link.matches(":focus-visible")) link.classList.add("is-kbd-focus");
+          });
+          link.addEventListener("blur", () => link.classList.remove("is-kbd-focus"));
+        });
+      })();
+    </script>
     <script src="js/preloader.js" type="text/javascript"></script>
       <!-- Vercel Analytics -->
     <script>
