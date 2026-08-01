@@ -4,16 +4,16 @@
     <!-- ===== META : encodage, SEO, réseaux sociaux (Open Graph / Twitter Card) ===== -->
     <meta charset="utf-8" />
     <link href="https://cdn.prod.website-files.com" rel="preconnect" />
-    <title>Projet Glion — ZigZag Visuals</title>
+    <title>Prochain arrêt Glion — Film documentaire | ZigZag Visuals</title>
     <meta name="author" content="ZigZag Visuals" />
     <link rel="canonical" href="https://zigzagvisuals.ch/projet_Glion_VS/index.html" />
     <meta
-      content="Informations sur notre projet cinématographique parlant de Glion, son histoire via des témoignages précieux d'habitants"
+      content="Prochain arrêt Glion, un film documentaire sur l'histoire de Glion racontée par ses habitant·e·s. Un projet ZigZag Visuals avec l'Association des Intérêts de Glion."
       name="description"
     />
-    <meta content="Projet Glion — ZigZag Visuals" property="og:title" />
+    <meta content="Prochain arrêt Glion — Film documentaire | ZigZag Visuals" property="og:title" />
     <meta
-      content="Informations sur notre projet cinématographique parlant de Glion, son histoire via des témoignages précieux d'habitants"
+      content="Prochain arrêt Glion, un film documentaire sur l'histoire de Glion racontée par ses habitant·e·s. Un projet ZigZag Visuals avec l'Association des Intérêts de Glion."
       property="og:description"
     />
     <meta
@@ -23,9 +23,9 @@
     <meta content="https://zigzagvisuals.ch/projet_Glion_VS/index.html" property="og:url" />
     <meta content="ZigZag Visuals" property="og:site_name" />
     <meta content="fr_CH" property="og:locale" />
-    <meta content="Projet Glion — ZigZag Visuals" name="twitter:title" />
+    <meta content="Prochain arrêt Glion — Film documentaire | ZigZag Visuals" name="twitter:title" />
     <meta
-      content="Informations sur notre projet cinématographique parlant de Glion, son histoire via des témoignages précieux d'habitants"
+      content="Prochain arrêt Glion, un film documentaire sur l'histoire de Glion racontée par ses habitant·e·s. Un projet ZigZag Visuals avec l'Association des Intérêts de Glion."
       name="twitter:description"
     />
     <meta property="og:type" content="website" />
@@ -33,6 +33,20 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="css/the-gsap-field.webflow.shared.9b9a67e94.css" rel="stylesheet" type="text/css" />
 
+    <!-- ===== Accessibilité/SEO : le titre du film n'existe visuellement que sous forme de logo SVG (non lisible par les moteurs de recherche) ; ce H1 caché visuellement porte le vrai titre en texte, lu par les lecteurs d'écran et indexable ===== -->
+    <style>
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
     <!-- ===== CSS générées par Webflow : masquent certains éléments avant que les animations GSAP ne s'exécutent (évite le "flash" au chargement) ===== -->
     <style>
       @media (min-width: 992px) {
@@ -275,7 +289,7 @@
         <div class="logo-wrap-hero preloader-logo">
           <img
             src="/projet_Glion_VS/images/Logo_Glion.svg"
-            alt="Logo du projet Glion"
+            alt="Prochain arrêt Glion"
             class="logo-hero"
           />
           <div class="overlay-preloader-logo"></div>
@@ -308,11 +322,12 @@
         </video>
         <div class="w-layout-blockcontainer main-container w-container">
           <div class="master-hero-section">
+            <h1 class="visually-hidden">Prochain arrêt Glion — film documentaire</h1>
             <div class="logo-wrap-hero">
               <img
                 src="/projet_Glion_VS/images/Logo_Glion.svg"
                 loading="lazy"
-                alt="Logo du projet Glion"
+                alt="Prochain arrêt Glion"
                 class="logo-hero"
               />
             </div>
