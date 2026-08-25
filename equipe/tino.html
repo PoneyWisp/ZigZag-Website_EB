@@ -321,7 +321,7 @@
       }
 
       .tino-feature_inner {
-        max-width: 66rem;
+        max-width: 72rem;
         margin-left: auto;
         margin-right: auto;
       }
@@ -439,11 +439,11 @@
       }
 
       .tino-mindmap_stage {
-        --tino-hub-size: 9.75rem;
-        --ring0-radius: 8.25rem;
-        --ring1-radius: 13.75rem;
-        --ring2-radius: 19.25rem;
-        --console-stage-size: 46rem;
+        --tino-hub-size: 11.25rem;
+        --ring0-radius: 9.5rem;
+        --ring1-radius: 15.75rem;
+        --ring2-radius: 22rem;
+        --console-stage-size: 52rem;
         position: relative;
         width: var(--console-stage-size);
         height: var(--console-stage-size);
@@ -617,8 +617,8 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 3.4rem;
-        height: 3.4rem;
+        width: 3.7rem;
+        height: 3.7rem;
         margin: 0;
         padding: 0;
         border: none;
@@ -653,6 +653,12 @@
 
       .tino-mindmap_node.is-primary .tino-mindmap_node-mark {
         box-shadow: 0 0 0 1px rgba(204, 252, 204, .5), 0 8px 20px -10px rgba(0, 0, 0, .5);
+      }
+
+      /* Logo Bonmont : marque blanche sur transparent, invisible sur le fond clair uniforme des tuiles — fond sombre dédié pour ce seul logo */
+      .tino-mindmap_node[data-org="bonmont"] .tino-mindmap_node-mark,
+      .tino-mindmap_mobile-tile[data-org="bonmont"] .tino-mindmap_node-mark {
+        background: rgba(10, 10, 12, .92);
       }
 
       .tino-mindmap_node-btn:hover .tino-mindmap_node-mark,
@@ -793,6 +799,10 @@
         background: var(--_colors---grey--50);
       }
 
+      #tino-panel-bonmont .tino-mindmap_panel-logo {
+        background: rgba(10, 10, 12, .92);
+      }
+
       .tino-mindmap_panel-logo img {
         max-width: 100%;
         max-height: 100%;
@@ -875,11 +885,11 @@
       /* ===== Palier desktop restreint ===== */
       @media screen and (max-width: 1199px) and (min-width: 992px) {
         .tino-mindmap_stage {
-          --tino-hub-size: 7.7rem;
-          --ring0-radius: 6.4rem;
-          --ring1-radius: 10.5rem;
-          --ring2-radius: 14.75rem;
-          --console-stage-size: 35rem;
+          --tino-hub-size: 8.3rem;
+          --ring0-radius: 6.9rem;
+          --ring1-radius: 11.3rem;
+          --ring2-radius: 15.9rem;
+          --console-stage-size: 38rem;
         }
 
         .tino-mindmap_detail-col {
@@ -1000,17 +1010,29 @@
           display: none;
         }
 
+        /* visibility + max-height plutôt que display:none/block : basculer display force le navigateur à
+           reconstruire la couche de composition du backdrop-filter à froid, d'où un flash "pas encore flou"
+           le temps d'un frame à l'ouverture. En laissant chaque panneau toujours "display:block" (juste
+           réduit à 0 de hauteur et invisible), sa couche de flou reste déjà prête quand il apparaît */
         .tino-mindmap_panel {
           position: static;
-          display: none;
+          visibility: hidden;
+          max-height: 0;
+          padding: 0;
+          border: none;
+          overflow: hidden;
           opacity: 1;
-          pointer-events: auto;
+          pointer-events: none;
           transform: none;
-          max-height: 75vh;
         }
 
         .tino-mindmap_panel.is-active {
-          display: block;
+          visibility: visible;
+          max-height: 75vh;
+          padding: var(--fixed--1-75rem);
+          border: 1px solid rgba(255, 255, 255, .16);
+          overflow-y: auto;
+          pointer-events: auto;
         }
       }
 
@@ -1268,9 +1290,9 @@
                     <div class="tino-feature_surname">CHHATH</div>
                   </div>
                   <div class="tino-feature_letter-role">
-                    <p class="tino-feature_role">Spécialiste &amp; ingénieur du son</p>
+                    <p class="tino-feature_role">Responsable de projet &amp; Ingénieur du son</p>
                     <p class="tino-feature_employer">ZigZag Visuals</p>
-                    <div class="tino-feature_signal">12 partenaires · mon savoir faire</div>
+                    <div class="tino-feature_signal">12 références · mon savoir faire</div>
                   </div>
                 </div>
               </div>
@@ -1288,7 +1310,7 @@
                           class="tino-mindmap_hub-img"
                           loading="lazy"
                           alt="Portrait de Tino, ingénieur du son chez ZigZag Visuals"
-                          style="object-position: center 22%; --img-zoom: 1.18; --img-pan-x: 22px; --img-pan-y: 20px;"
+                          style="object-position: center 22%; --img-zoom: 1.18; --img-pan-x: 10px; --img-pan-y: 20px;"
                         />
                       </div>
                     </div>
@@ -1386,7 +1408,7 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="swissbasket" style="--node-angle: 60deg;">
+                      <div class="tino-mindmap_node" data-org="swissbasket" style="--node-angle: 51.43deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-swissbasket" aria-expanded="false" aria-controls="tino-panel-swissbasket">
                           <span class="tino-mindmap_node-inner">
@@ -1396,7 +1418,7 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="uci" style="--node-angle: 120deg;">
+                      <div class="tino-mindmap_node" data-org="uci" style="--node-angle: 102.86deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-uci" aria-expanded="false" aria-controls="tino-panel-uci">
                           <span class="tino-mindmap_node-inner">
@@ -1406,17 +1428,27 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="tennis" style="--node-angle: 180deg;">
+                      <div class="tino-mindmap_node" data-org="tennis" style="--node-angle: 154.29deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-tennis" aria-expanded="false" aria-controls="tino-panel-tennis">
                           <span class="tino-mindmap_node-inner">
                             <span class="tino-mindmap_node-mark"><img src="../images/partners/tennis-mno.png" class="tino-mindmap_node-logo" loading="lazy" alt="Montreux Nestlé Open — WTA 125" /></span>
-                            <span class="tino-mindmap_node-label">Tennis</span>
+                            <span class="tino-mindmap_node-label">Montreux</span>
                           </span>
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="chigeneve" style="--node-angle: 240deg;">
+                      <div class="tino-mindmap_node" data-org="bonmont" style="--node-angle: 205.71deg;">
+                        <span class="tino-mindmap_spoke" aria-hidden="true"></span>
+                        <button type="button" class="tino-mindmap_node-btn" id="tino-node-bonmont" aria-expanded="false" aria-controls="tino-panel-bonmont">
+                          <span class="tino-mindmap_node-inner">
+                            <span class="tino-mindmap_node-mark"><img src="../images/partners/bonmont.png" class="tino-mindmap_node-logo" loading="lazy" alt="Bonmont Masters Tennis" /></span>
+                            <span class="tino-mindmap_node-label">Bonmont</span>
+                          </span>
+                        </button>
+                      </div>
+
+                      <div class="tino-mindmap_node" data-org="chigeneve" style="--node-angle: 257.14deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-chigeneve" aria-expanded="false" aria-controls="tino-panel-chigeneve">
                           <span class="tino-mindmap_node-inner">
@@ -1426,7 +1458,7 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="bein" style="--node-angle: 300deg;">
+                      <div class="tino-mindmap_node" data-org="bein" style="--node-angle: 308.57deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-bein" aria-expanded="false" aria-controls="tino-panel-bein">
                           <span class="tino-mindmap_node-inner">
@@ -1482,7 +1514,11 @@
                     </button>
                     <button type="button" class="tino-mindmap_mobile-tile" data-org="tennis" aria-controls="tino-panel-tennis">
                       <span class="tino-mindmap_node-mark"><img src="../images/partners/tennis-mno.png" class="tino-mindmap_node-logo" loading="lazy" alt="Montreux Nestlé Open — WTA 125" /></span>
-                      <span class="tino-mindmap_mobile-label">Tennis</span>
+                      <span class="tino-mindmap_mobile-label">Montreux</span>
+                    </button>
+                    <button type="button" class="tino-mindmap_mobile-tile" data-org="bonmont" aria-controls="tino-panel-bonmont">
+                      <span class="tino-mindmap_node-mark"><img src="../images/partners/bonmont.png" class="tino-mindmap_node-logo" loading="lazy" alt="Bonmont Masters Tennis" /></span>
+                      <span class="tino-mindmap_mobile-label">Bonmont</span>
                     </button>
                     <button type="button" class="tino-mindmap_mobile-tile" data-org="chigeneve" aria-controls="tino-panel-chigeneve">
                       <span class="tino-mindmap_node-mark"><img src="../images/partners/chi-geneve.png" class="tino-mindmap_node-logo" loading="lazy" alt="CHI de Genève" /></span>
@@ -1497,7 +1533,7 @@
 
                 <div class="tino-mindmap_detail-col">
                   <div class="tino-mindmap_detail" id="tino-mindmap-detail">
-                    <div class="tino-mindmap_detail-empty" aria-hidden="true">Sélectionnez un partenaire</div>
+                    <div class="tino-mindmap_detail-empty" aria-hidden="true">Sélectionnez une référence</div>
 
                     <div class="tino-mindmap_panel" id="tino-panel-zigzag" role="region" aria-labelledby="tino-panel-zigzag-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
@@ -1505,17 +1541,19 @@
                       <div class="tino-mindmap_panel-eyebrow">Partenaire fondateur</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-zigzag-title">ZigZag Visuals / Blue Lake Studio</h3>
                       <div class="tino-mindmap_panel-body">
-                        <p>Le terrain d'essai de ZigZag Visuals et de son studio d'enregistrement, Blue Lake Studio : mixage et enregistrement du groupe WattsSons, et rediffusions live de la Coupe du Monde de Futnet féminin (2022), de la Coupe Suisse de Futnet (2022–2023) et des coupes vaudoise et fribourgeoise de football (2025–2026, avec FootRomand).</p>
+                        <p>Mixage et enregistrement des WattsSons.</p>
+                        <p>Multiples retransmissions en direct d'événements sportifs.</p>
+                        <p>Sound design et mixage — Animation.</p>
                       </div>
                     </div>
 
                     <div class="tino-mindmap_panel" id="tino-panel-dazn" role="region" aria-labelledby="tino-panel-dazn-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/dazn.svg" loading="lazy" alt="" /></div>
-                      <div class="tino-mindmap_panel-eyebrow">Chef de car &amp; ingénieur du son</div>
+                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son / Brates SA</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-dazn-title">DAZN</h3>
                       <div class="tino-mindmap_panel-body">
-                        <p>Plus de 50 matchs de Basketball Champions League couverts pour DAZN (diffusion Brates / Suisse HD), à travers l'Europe.</p>
+                        <p>Plus de 50 matchs de Basketball Champions League couverts pour DAZN, à travers l'Europe.</p>
                       </div>
                       <ul class="tino-mindmap_panel-tags">
                         <li>Nanterre</li>
@@ -1530,7 +1568,7 @@
                     <div class="tino-mindmap_panel" id="tino-panel-francetv" role="region" aria-labelledby="tino-panel-francetv-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/france-tv.png" loading="lazy" alt="" /></div>
-                      <div class="tino-mindmap_panel-eyebrow">France TV · L'Équipe</div>
+                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son / Brates SA</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-francetv-title">France TV / L'Équipe</h3>
                       <div class="tino-mindmap_panel-body">
                         <p>Finale de la Coupe de France de Hockey 2025, Bercy — chef de car &amp; ingénieur du son.</p>
@@ -1541,7 +1579,7 @@
                     <div class="tino-mindmap_panel" id="tino-panel-eurosport" role="region" aria-labelledby="tino-panel-eurosport-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/eurosport.png" loading="lazy" alt="" /></div>
-                      <div class="tino-mindmap_panel-eyebrow">Eurosport</div>
+                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son / Brates SA</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-eurosport-title">Eurosport</h3>
                       <div class="tino-mindmap_panel-body">
                         <p>Finale de la Coupe de France de Hockey 2025, Bercy — chef de car &amp; ingénieur du son.</p>
@@ -1555,7 +1593,7 @@
                       <div class="tino-mindmap_panel-eyebrow">Chef de car, ingénieur du son &amp; réalisateur</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-hockeysuisse-title">Hockey Suisse</h3>
                       <div class="tino-mindmap_panel-body">
-                        <p>Swiss League, My Hockey League, Coupe Suisse et Women's League, en diffusion Brates.</p>
+                        <p>Swiss League, My Hockey League, Coupe Suisse et Women's League.</p>
                       </div>
                       <ul class="tino-mindmap_panel-tags">
                         <li>SC Langenthal</li>
@@ -1612,7 +1650,7 @@
                     <div class="tino-mindmap_panel" id="tino-panel-rts" role="region" aria-labelledby="tino-panel-rts-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/rts.png" loading="lazy" alt="" /></div>
-                      <div class="tino-mindmap_panel-eyebrow">Responsable de production</div>
+                      <div class="tino-mindmap_panel-eyebrow">Mandat actuel</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-rts-title">RTS</h3>
                       <ul class="tino-mindmap_panel-groups">
                         <li><span class="tino-mindmap_panel-group-label">Qualifications UEFA</span>FC Sion · FC Thoune</li>
@@ -1626,9 +1664,19 @@
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/tennis-mno.png" loading="lazy" alt="" /></div>
                       <div class="tino-mindmap_panel-eyebrow">Chef de car, ingénieur du son &amp; responsable de production</div>
-                      <h3 class="tino-mindmap_panel-title" id="tino-panel-tennis-title">WTA Montreux &amp; Bonmont Masters</h3>
+                      <h3 class="tino-mindmap_panel-title" id="tino-panel-tennis-title">WTA Montreux Nestlé Open</h3>
                       <div class="tino-mindmap_panel-body">
-                        <p>WTA Montreux Nestlé Open (2024 et 2025) et Bonmont Masters Tennis (2024 et 2025).</p>
+                        <p>WTA Montreux Nestlé Open (2024 et 2025).</p>
+                      </div>
+                    </div>
+
+                    <div class="tino-mindmap_panel" id="tino-panel-bonmont" role="region" aria-labelledby="tino-panel-bonmont-title">
+                      <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
+                      <div class="tino-mindmap_panel-logo"><img src="../images/partners/bonmont.png" loading="lazy" alt="" /></div>
+                      <div class="tino-mindmap_panel-eyebrow">Chef de car, ingénieur du son &amp; responsable de production</div>
+                      <h3 class="tino-mindmap_panel-title" id="tino-panel-bonmont-title">Bonmont Masters Tennis</h3>
+                      <div class="tino-mindmap_panel-body">
+                        <p>Bonmont Masters Tennis (2024 et 2025).</p>
                       </div>
                     </div>
 
