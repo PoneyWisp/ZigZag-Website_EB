@@ -4,27 +4,43 @@
     <!-- Métadonnées de la page : titre, description, réseaux sociaux (Open Graph / Twitter) -->
     <meta charset="utf-8" />
     <link href="https://cdn.prod.website-files.com" rel="preconnect" />
-    <title>Tino — Équipe ZigZag Visuals</title>
+    <title>Tino Chhath — Ingénieur du son, ZigZag Visuals</title>
     <meta name="author" content="ZigZag Visuals" />
     <link rel="canonical" href="https://zigzagvisuals.ch/equipe/tino.html" />
     <meta
-      content="Tino, spécialiste et ingénieur du son chez ZigZag Visuals : ses mandats pour DAZN, l'UEFA, la RTS, Eurosport, Hockey Suisse et d'autres diffuseurs et fédérations sportives."
+      content="Tino Chhath, spécialiste et ingénieur du son chez ZigZag Visuals : ses mandats pour DAZN, l'UEFA, la RTS, Eurosport, Hockey Suisse et d'autres diffuseurs et fédérations sportives."
       name="description"
     />
-    <meta content="Tino — Équipe ZigZag Visuals" property="og:title" />
+    <meta content="Tino Chhath — Ingénieur du son, ZigZag Visuals" property="og:title" />
     <meta
-      content="Tino, spécialiste et ingénieur du son chez ZigZag Visuals : ses mandats pour DAZN, l'UEFA, la RTS, Eurosport, Hockey Suisse et d'autres diffuseurs et fédérations sportives."
+      content="Tino Chhath, spécialiste et ingénieur du son chez ZigZag Visuals : ses mandats pour DAZN, l'UEFA, la RTS, Eurosport, Hockey Suisse et d'autres diffuseurs et fédérations sportives."
       property="og:description"
     />
     <meta content="https://zigzagvisuals.ch/images/og-zigzag-equipe.jpg" property="og:image" />
     <meta content="https://zigzagvisuals.ch/equipe/tino.html" property="og:url" />
     <meta content="ZigZag Visuals" property="og:site_name" />
     <meta content="fr_CH" property="og:locale" />
-    <meta content="Tino — Équipe ZigZag Visuals" name="twitter:title" />
+    <meta content="Tino Chhath — Ingénieur du son, ZigZag Visuals" name="twitter:title" />
     <meta
-      content="Tino, spécialiste et ingénieur du son chez ZigZag Visuals : ses mandats pour DAZN, l'UEFA, la RTS, Eurosport, Hockey Suisse et d'autres diffuseurs et fédérations sportives."
+      content="Tino Chhath, spécialiste et ingénieur du son chez ZigZag Visuals : ses mandats pour DAZN, l'UEFA, la RTS, Eurosport, Hockey Suisse et d'autres diffuseurs et fédérations sportives."
       name="twitter:description"
     />
+    <!-- Données structurées : signale explicitement aux moteurs de recherche que cette page concerne une personne précise (nom complet), pour qu'une recherche sur son nom remonte cette page -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Tino Chhath",
+        "jobTitle": "Ingénieur du son",
+        "url": "https://zigzagvisuals.ch/equipe/tino.html",
+        "image": "https://zigzagvisuals.ch/images/equipe-tino.webp",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "ZigZag Visuals",
+          "url": "https://zigzagvisuals.ch/"
+        }
+      }
+    </script>
     <meta property="og:type" content="website" />
     <meta content="summary_large_image" name="twitter:card" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -655,10 +671,12 @@
         box-shadow: 0 0 0 1px rgba(204, 252, 204, .5), 0 8px 20px -10px rgba(0, 0, 0, .5);
       }
 
-      /* Logo Bonmont : marque blanche sur transparent, invisible sur le fond clair uniforme des tuiles — fond sombre dédié pour ce seul logo */
+      /* Logo Bonmont : marque blanche sur transparent, invisible sur le fond clair uniforme des tuiles — fond sombre dédié pour ce seul logo.
+         Ce fond sombre se fondait dans le noir de la page : léger cadrage blanc pour que la tuile reste lisible comme un objet posé sur le fond, pas absorbée par lui */
       .tino-mindmap_node[data-org="bonmont"] .tino-mindmap_node-mark,
       .tino-mindmap_mobile-tile[data-org="bonmont"] .tino-mindmap_node-mark {
         background: rgba(10, 10, 12, .92);
+        border: 1px solid rgba(255, 255, 255, .22);
       }
 
       .tino-mindmap_node-btn:hover .tino-mindmap_node-mark,
@@ -801,6 +819,7 @@
 
       #tino-panel-bonmont .tino-mindmap_panel-logo {
         background: rgba(10, 10, 12, .92);
+        border: 1px solid rgba(255, 255, 255, .22);
       }
 
       .tino-mindmap_panel-logo img {
