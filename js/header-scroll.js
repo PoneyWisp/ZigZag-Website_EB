@@ -23,7 +23,10 @@
   }
 
   function update(scrollY, direction) {
-    if (scrollY < heroHeight()) {
+    // Le hero n'existe que sur l'accueil : sur les autres pages, il n'y a rien à protéger,
+    // donc on ne force jamais le masquage initial (sinon heroHeight() retombe sur
+    // window.innerHeight et bloque l'en-tête masqué pour tout le premier écran, dans les deux sens).
+    if (hero && scrollY < heroHeight()) {
       clearTimeout(hideTimer);
       nav.classList.add("u-nav-hidden");
       return;

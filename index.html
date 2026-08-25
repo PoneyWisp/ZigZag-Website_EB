@@ -1497,6 +1497,334 @@
       }
     </style>
 
+    <!-- Section Équipe : grille 2×2 miroir, la carte entière est le lien (pas de bouton séparé). Médaillon photo à taille naturelle mais généreuse (on voit la personne en entier), aligné sur le bord bas de la carte, toujours du côté opposé au texte. Le texte vit dans une vraie carte "verre liquide" (dégradé teinté menthe, flouté, bordure fine), toujours à distance du médaillon (jamais de chevauchement, qui faisait passer un bras/une épaule sous le bord du panneau — lisible comme un bug). Texte casé en haut (même point de départ pour les initiales quelle que soit la longueur de la description), indication de clic type lien (texte + flèche, écho du lien du footer) plutôt qu'un bouton plein. Mise en avant "spotlight" au survol/clavier (blanc) plutôt qu'un accordéon qui s'élargit -->
+    <style>
+      .team {
+        padding-top: var(--section--small);
+        padding-bottom: var(--section--small);
+      }
+
+      .team_inner {
+        max-width: 80rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .team_head {
+        max-width: 40rem;
+      }
+
+      .team_grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: var(--fixed--1-5rem);
+        row-gap: var(--fixed--1rem);
+      }
+
+      /* La carte est elle-même le lien (plus de bouton séparé à l'intérieur) */
+      /* Pas de padding en bas : le médaillon (aligné en bas) touche directement le bord inférieur de la carte, comme si la personne en sortait. Le panneau de texte compense avec sa propre marge basse */
+      .team_card {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: end;
+        min-height: 21rem;
+        background: linear-gradient(165deg, #161616, #000);
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: var(--border-radius--large);
+        padding: var(--fixed--1-25rem) var(--fixed--1-25rem) 0;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* Médaillon à taille naturelle (carré ou vertical selon la photo source), jamais étiré : on voit la personne en entier, du haut de la tête aux épaules/torse. Toujours aligné sur le bord bas de la carte, présence généreuse (pas un timbre-poste) */
+      .team_card-media {
+        order: 1;
+        align-self: end;
+        border-radius: var(--border-radius--medium);
+        overflow: hidden;
+      }
+
+      /* Largeur différente selon le ratio pour que les deux variantes atteignent la même hauteur (donc le même haut de médaillon, aligné avec le haut du prénom) une fois posées sur le bord bas de la carte : un carré doit être plus large qu'un rectangle vertical pour "monter" aussi haut */
+      .team_card-media.is-square {
+        width: 18.75rem;
+        aspect-ratio: 1 / 1;
+      }
+
+      .team_card-media.is-portrait {
+        width: 15rem;
+        aspect-ratio: 4 / 5;
+      }
+
+      /* Le ratio du cadre colle exactement au ratio des photos sources (carré pour Tino/Noah, 4:5 pour Maxime/Benoît) : object-fit:cover ne recadre donc rien du tout, et object-position n'a aucune marge pour agir. --img-zoom/--img-pan-x/--img-pan-y créent artificiellement une marge de manœuvre (léger zoom) pour recentrer un sujet mal cadré dans la photo source, sans jamais l'étirer ni le déformer */
+      .team_card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transform: scale(var(--img-zoom, 1)) translate(var(--img-pan-x, 0px), var(--img-pan-y, 0px));
+        transition: transform .6s cubic-bezier(.16, 1, .3, 1), filter .6s cubic-bezier(.16, 1, .3, 1);
+      }
+
+      .team_card.is-focus .team_card-img {
+        transform: scale(calc(var(--img-zoom, 1) * 1.06)) translate(var(--img-pan-x, 0px), var(--img-pan-y, 0px));
+      }
+
+      /* Un seul élément mis en avant à la fois : les 3 autres cartes s'atténuent (verbe visuel différent de l'agrandissement de Services) */
+      .team_grid.has-focus .team_card:not(.is-focus) .team_card-img {
+        filter: brightness(.78) saturate(.85);
+      }
+
+      /* Carte "verre liquide" : dégradé teinté menthe → noir, flouté, bordure fine. Volontairement posée à distance du médaillon (jamais de chevauchement) : sur les cartes à médaillon carré (plus large), un chevauchement laissait parfois un bras/une épaule traverser le bord du panneau — lisible comme un bug, pas comme un effet. Texte casé en haut, jamais centré, pour que les initiales démarrent toujours au même point quelle que soit la longueur de la description */
+      /* Largeur fixe (pas 1fr) et volontairement plus étroite que l'espace disponible même sur la carte la plus contrainte (médaillon carré) : garantit qu'aucune carte ne peut chevaucher son médaillon, quelle que soit la largeur de celui-ci — les deux rectangles de texte font toujours la même taille. min-width:0 + minmax(0, 1fr) sur la grille restent une double sécurité : sans eux, la grille agrandissait la colonne de texte au-delà de l'espace disponible plutôt que de rogner son contenu minimal, ce qui poussait le panneau hors de la carte (qui le rognait alors elle-même, coin arrondi et bordure coupés net, ex. Noah) */
+      .team_card-body {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        align-self: stretch;
+        justify-self: end;
+        width: 17rem;
+        min-width: 0;
+        margin-bottom: var(--fixed--1-25rem);
+        padding: var(--fixed--1-75rem);
+        border-radius: var(--border-radius--medium);
+        background: linear-gradient(155deg, rgba(204, 252, 204, .14), rgba(255, 255, 255, .04) 45%, rgba(0, 0, 0, .4) 100%);
+        -webkit-backdrop-filter: blur(18px) saturate(150%);
+        backdrop-filter: blur(18px) saturate(150%);
+        border: 1px solid rgba(255, 255, 255, .16);
+        box-shadow: 0 20px 40px -22px rgba(0, 0, 0, .6);
+        color: var(--_colors---primary--white);
+      }
+
+      /* Colonne gauche (Tino, Maxime) : texte à gauche, médaillon à droite */
+      .team_grid > .team_card:nth-child(odd) {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .team_grid > .team_card:nth-child(odd) .team_card-media {
+        order: 2;
+      }
+
+      .team_grid > .team_card:nth-child(odd) .team_card-body {
+        order: 1;
+        justify-self: start;
+      }
+
+      /* Numéro mono : la police variable Roboto Mono VF anime nativement son font-weight (100 → 700) sans jamais changer la largeur des caractères ni la mise en page */
+      .team_card-num {
+        font-family: var(--_typography---font-family--detail);
+        font-size: var(--fixed--0-875rem);
+        font-weight: 100;
+        letter-spacing: .05em;
+        color: rgba(255, 255, 255, .5);
+        margin-bottom: var(--fixed--0-5rem);
+        transition: color .45s ease, font-weight .45s ease;
+      }
+
+      .team_card.is-focus .team_card-num {
+        color: #ccfccc;
+        font-weight: 700;
+      }
+
+      .team_card-name {
+        position: relative;
+        display: inline-block;
+        padding-bottom: var(--fixed--0-25rem);
+        font-size: var(--fixed--1-75rem);
+        font-weight: var(--_typography---font-weight--semibold);
+        letter-spacing: -.01em;
+        margin: 0;
+        color: var(--_colors---primary--white);
+      }
+
+      /* Trait qui se dessine sous le nom au focus — jamais un changement de taille (leçon FAQ) */
+      .team_card-name::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 1px;
+        background-color: #ccfccc;
+        transition: width .5s cubic-bezier(.16, 1, .3, 1);
+      }
+
+      .team_card.is-focus .team_card-name::after {
+        width: 2rem;
+      }
+
+      .team_card-role {
+        margin-top: var(--fixed--0-25rem);
+        font-size: var(--fixed--0-875rem);
+        color: rgba(255, 255, 255, .55);
+      }
+
+      .team_card-desc {
+        margin-top: var(--fixed--0-75rem);
+        color: rgba(255, 255, 255, .82);
+        font-size: var(--fixed--1rem);
+        line-height: 1.5;
+      }
+
+      /* Indication de clic façon lien (texte + flèche), pas un bouton plein — la carte entière est déjà le bouton. Reprend l'intention du lien du footer (teinte menthe + flèche qui glisse au survol), pas son CSS littéral */
+      .team_card-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--fixed--0-5rem);
+        margin-top: var(--fixed--1-25rem);
+        font-family: var(--_typography---font-family--detail);
+        font-size: var(--fixed--0-75rem);
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, .55);
+        transition: color .3s ease;
+      }
+
+      .team_card-cta-arrow {
+        transition: transform .3s ease;
+      }
+
+      .team_card:hover .team_card-cta,
+      .team_card:focus-visible .team_card-cta {
+        color: #ccfccc;
+      }
+
+      .team_card:hover .team_card-cta-arrow,
+      .team_card:focus-visible .team_card-cta-arrow {
+        transform: translateX(.25rem);
+      }
+
+      /* Mobile/tablette : liste typographique en zigzag, écho direct du nom de la marque. Le texte est réduit au strict nécessaire (rôle, pas de long paragraphe — masqué ici, toujours visible sur desktop) pour que le nom, en très grand, devienne le vrai sujet. Le portrait déborde en alternance à gauche/à droite du bord de la page (jamais centré), le nom se cale du côté opposé — la lecture serpente naturellement d'une personne à l'autre. Un simple trait pointillé (même motif que .line ailleurs sur le site) rythme le passage d'une personne à l'autre, aucune carte/boîte */
+      @media screen and (max-width: 991px) {
+        .team_grid {
+          display: block;
+          grid-template-columns: none;
+        }
+
+        .team_card,
+        .team_grid > .team_card:nth-child(odd) {
+          display: block;
+          position: relative;
+          min-height: 0;
+          background: none;
+          border: none;
+          border-top: 1px dotted var(--_colors---grey--300);
+          border-radius: 0;
+          padding: var(--fixed--3-5rem) 0;
+          text-align: left;
+        }
+
+        .team_grid > .team_card:first-child {
+          border-top: none;
+          padding-top: 0;
+        }
+
+        .team_card-media,
+        .team_grid > .team_card:nth-child(odd) .team_card-media {
+          order: unset;
+          justify-self: unset;
+          align-self: unset;
+          display: block;
+          width: 66%;
+          max-width: 15rem;
+          margin-left: auto;
+          margin-right: calc(var(--fixed--1-5rem) * -1);
+          margin-bottom: var(--fixed--1-5rem);
+        }
+
+        /* Colonne impaire (Tino, Maxime) : photo déborde à droite, nom calé à gauche */
+        .team_grid > .team_card:nth-child(odd) .team_card-media {
+          margin-left: auto;
+          margin-right: calc(var(--fixed--1-5rem) * -1);
+        }
+
+        /* Paire (Noah, Benoît) : photo déborde à gauche, nom calé à droite */
+        .team_grid > .team_card:nth-child(even) .team_card-media {
+          margin-left: calc(var(--fixed--1-5rem) * -1);
+          margin-right: auto;
+        }
+
+        .team_grid > .team_card:nth-child(even) {
+          text-align: right;
+        }
+
+        .team_card-body,
+        .team_grid > .team_card:nth-child(odd) .team_card-body {
+          order: unset;
+          justify-self: unset;
+          align-items: unset;
+          display: block;
+          width: auto;
+          margin: 0;
+          padding: 0;
+          background: none;
+          border: none;
+          box-shadow: none;
+          -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+          color: var(--_colors---primary--black);
+        }
+
+        .team_card-num {
+          color: var(--_colors---grey--300);
+        }
+
+        .team_card.is-focus .team_card-num {
+          color: var(--_colors---primary--accent);
+        }
+
+        /* Le nom devient le vrai sujet de la liste : très grand, ça remplace la longue description qu'on masque */
+        .team_card-name {
+          font-size: var(--fixed--4rem);
+          line-height: .95;
+          letter-spacing: -.02em;
+          color: var(--_colors---primary--black);
+        }
+
+        .team_card-name::after {
+          display: none;
+        }
+
+        .team_card.is-focus .team_card-name {
+          color: var(--_colors---primary--accent);
+        }
+
+        .team_card-role {
+          margin-top: var(--fixed--0-5rem);
+          font-size: var(--fixed--1rem);
+          color: var(--_colors---grey--300);
+        }
+
+        .team_card-desc {
+          display: none;
+        }
+
+        .team_card-cta {
+          margin-top: var(--fixed--1-25rem);
+          color: var(--_colors---grey--300);
+        }
+
+        .team_grid > .team_card:nth-child(even) .team_card-cta {
+          justify-content: flex-end;
+        }
+
+        .team_card:hover .team_card-cta,
+        .team_card:focus-visible .team_card-cta {
+          color: var(--_colors---primary--accent);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .team_card-img,
+        .team_card-name::after,
+        .team_card-num,
+        .team_card-cta,
+        .team_card-cta-arrow {
+          transition: none !important;
+        }
+      }
+    </style>
+
     <!-- Section FAQ : titre en haut, questions à gauche, photo d'équipe à droite. Cliquer une question superpose sa réponse sur la photo, qui se floute (verre dépoli) ; une seule question ouverte à la fois -->
     <style>
       .faq_head {
@@ -2020,13 +2348,6 @@
               </div>
               <div class="navbar_links-menu">
                 <div class="navbar_links">
-                  <a href="#section-services" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
-                    ><div class="navbar_link-texts">
-                      <div class="navbar_link-text _1">Services</div>
-                      <div class="navbar_link-text _2">Services</div>
-                    </div>
-                    <div class="navbar_link-dot"></div
-                  ></a>
                   <div class="navbar_works-link">
                     <a
                       href="#projets"
@@ -2039,6 +2360,20 @@
                     >
                     <div class="navbar_works-number-wrap"><div class="navbar_works-number">1</div></div>
                   </div>
+                  <a href="#section-services" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
+                    ><div class="navbar_link-texts">
+                      <div class="navbar_link-text _1">Services</div>
+                      <div class="navbar_link-text _2">Services</div>
+                    </div>
+                    <div class="navbar_link-dot"></div
+                  ></a>
+                  <a href="#section-equipe" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
+                    ><div class="navbar_link-texts">
+                      <div class="navbar_link-text _1">Équipe</div>
+                      <div class="navbar_link-text _2">Équipe</div>
+                    </div>
+                    <div class="navbar_link-dot"></div
+                  ></a>
                   <a
                     href="/contact.html"
                     data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace"
@@ -2076,6 +2411,16 @@
                             </div>
                             <div class="menu_link-dot"></div></a
                           ><a
+                            href="#projets"
+                            data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
+                            class="menu_link w-inline-block"
+                            ><div class="menu_link-texts">
+                              <div class="menu_link-text _1">Projets</div>
+                              <div class="menu_link-text _2">Projets</div>
+                            </div>
+                            <div class="menu_link-dot"></div>
+                          </a>
+                          <a
                             href="#section-services"
                             data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
                             class="menu_link w-inline-block"
@@ -2086,12 +2431,12 @@
                             <div class="menu_link-dot"></div>
                           </a>
                           <a
-                            href="/index.html#projets"
+                            href="#section-equipe"
                             data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
                             class="menu_link w-inline-block"
                             ><div class="menu_link-texts">
-                              <div class="menu_link-text _1">Projets</div>
-                              <div class="menu_link-text _2">Projets</div>
+                              <div class="menu_link-text _1">Équipe</div>
+                              <div class="menu_link-text _2">Équipe</div>
                             </div>
                             <div class="menu_link-dot"></div>
                           </a>
@@ -2898,650 +3243,124 @@
             </div>
           </div>
         </section>
-        <!--Section Showreel : vidéo de présentation 
-        <section class="section_showreel">
-          <div data-w-id="54958a20-ac41-e719-19b6-10b9a9315b9a" class="showreel_wrap">
-            <div class="showreel_scroll-note">Keep scrolling</div>
-            <div class="showreel_sticky">
-              <a href="#" class="showreel_lightbox w-inline-block w-lightbox"
-                ><h2 class="showreel_heading _1">©2025</h2>
-                <div class="showreel_img-wrap">
-                  <img
-                    loading="eager"
-                    src="images/showreel.png"
-                    alt="A man standing in the middle of a dark room."
-                    class="showreel_img"
-                  />
-                  <div class="showreel_play-wrapper">
-                    <h2 class="showreel_play-text">Play showreel</h2>
-                    <div class="showreel_play-icon-wrap">
-                      <img src="images/play-icon.svg" loading="lazy" alt="" class="showreel_play-icon" />
-                    </div>
-                  </div>
-                </div>
-                <h2 class="showreel_heading _2">Showreel</h2>
-                <script type="application/json" class="w-json">
-                  {
-                    "items": [
-                      {
-                        "url": "https://youtube.com/watch?v=p1CLeATYZUQ",
-                        "originalUrl": "https://youtube.com/watch?v=p1CLeATYZUQ",
-                        "width": 940,
-                        "height": 528,
-                        "html": "<iframe class=\"embedly-embed\" src=\"//cdn.embedly.com/widgets/media.html?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dp1CLeATYZUQ&type=text%2Fhtml&schema=youtube&display_name=YouTube&src=https%3A%2F%2Fwww.youtube.com%2Fembed%2Fp1CLeATYZUQ%3Ffeature%3Doembed\" width=\"940\" height=\"528\" scrolling=\"no\" title=\"YouTube embed\" frameborder=\"0\" allow=\"autoplay; fullscreen; encrypted-media; picture-in-picture;\" allowfullscreen=\"true\"></iframe>",
-                        "type": "video"
-                      }
-                    ],
-                    "group": ""
-                  }
-                </script></a
-              >
-            </div>
-          </div>
-        </section> -->
-        <!-- Section Témoignages clients et chiffres clés 
-        <section class="section_testimonials">
-          <div class="padding-section-medium"></div>
-          <div class="padding-global">
-            <div class="container-medium">
-              <div class="testimonials_component">
-                <div class="testimonials_main">
-                  <div class="testimonials_head">
-                    <div>
-                      <div data-w-id="f4458d7a-bf4b-0312-92ab-343c3e6e0471" class="label_wrap">
-                        <div class="label_dot"></div>
-                        <h2 class="text-style-label">Testimonials</h2>
-                      </div>
-                      <div class="spacer-medium"></div>
-                      <div class="testimonials_heading">
-                        <h2 data-w-id="00e07311-24cb-f0bb-f4cd-36919691889a" class="heading-style-h3">
-                          What our clients are saying
-                        </h2>
-                      </div>
-                    </div>
-                    <div class="spacer-xlarge is-tablet-medium hide-mobile-portrait"></div>
-                    <div data-w-id="d7f2e80d-58c0-9304-80ac-8f9f71925b91" class="testimonials_data">
-                      <div class="testimonials_data-head">
-                        <div class="testimonials_data-head-text">Some data about our clients</div>
-                        <div data-w-id="e952acc8-9e73-4313-aab0-82f6889542df" class="line"></div>
-                      </div>
-                      <div class="testimonials_data-items">
-                        <div class="testimonials_data-item">
-                          <div>
-                            <div class="testimonials_data-number">92%</div>
-                            <div class="testimonials_data-label">of our clients return for a second project</div>
-                          </div>
-                          <div class="testimonials_data-bar"><div class="testimonials_data-bar-in _1"></div></div>
-                        </div>
-                        <div class="testimonials_data-item">
-                          <div>
-                            <div class="testimonials_data-number">87%</div>
-                            <div class="testimonials_data-label">reported a stronger brand perception</div>
-                          </div>
-                          <div class="testimonials_data-bar"><div class="testimonials_data-bar-in _2"></div></div>
-                        </div>
-                        <div class="testimonials_data-item">
-                          <div>
-                            <div class="testimonials_data-number">74%</div>
-                            <div class="testimonials_data-label">saw increased engagement on digital</div>
-                          </div>
-                          <div class="testimonials_data-bar"><div class="testimonials_data-bar-in _3"></div></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="testimonials_items">
-                    <div
-                      id="w-node-_527d699e-9019-9e28-e295-ff2a629887e1-e2a330fc"
-                      data-w-id="527d699e-9019-9e28-e295-ff2a629887e1"
-                      class="testimonials_cover"
-                    >
-                      <img
-                        src="images/elderly-20man-20in-20winter-20attire.jpeg"
-                        loading="lazy"
-                        data-w-id="11ea6b98-e56d-e393-9cc3-73cad26ea748"
-                        sizes="100vw"
-                        alt="A man wearing a brown coat and a brown hat."
-                        srcset="
-                          images/elderly-20man-20in-20winter-20attire-p-500.jpeg   500w,
-                          images/elderly-20man-20in-20winter-20attire-p-800.jpeg   800w,
-                          images/elderly-20man-20in-20winter-20attire-p-1080.jpeg 1080w,
-                          images/elderly-20man-20in-20winter-20attire.jpeg        1345w
-                        "
-                        class="testimonials_img"
-                      />
-                      <div class="testimonials_blur"></div>
-                      <div class="testimonials_main-wrap">
-                        <div class="testimonials_text-wrap">
-                          <div class="testimonials_stars">
-                            <img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" /><img
-                              src="images/star.svg"
-                              loading="lazy"
-                              alt=""
-                              class="testimonials_star"
-                            /><img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" /><img
-                              src="images/star.svg"
-                              loading="lazy"
-                              alt=""
-                              class="testimonials_star"
-                            /><img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" />
-                          </div>
-                          <blockquote class="testimonials_main-quote">
-                            “Working with Alture felt less like hiring a design agency and more like gaining a strategic
-                            partner forever.”
-                          </blockquote>
-                        </div>
-                        <div class="testimonials_author-wrap">
-                          <div class="testimonials_author-main">Harold Mercer</div>
-                          <div class="testimonials_title-main">Investor at Solence®</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div data-w-id="16b60ede-379a-36de-ec0d-aac9ef3b7e2d" class="testimonials_card">
-                      <div class="testimonials_wrap">
-                        <div class="testimonials_stars">
-                          <img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" /><img
-                            src="images/star.svg"
-                            loading="lazy"
-                            alt=""
-                            class="testimonials_star"
-                          /><img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" /><img
-                            src="images/star.svg"
-                            loading="lazy"
-                            alt=""
-                            class="testimonials_star"
-                          /><img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" />
-                        </div>
-                        <blockquote class="testimonials_quote">
-                          “Fast, thoughtful, and deeply collaborative. Alture felt like part of our team from day one.”
-                        </blockquote>
-                      </div>
-                      <div class="testimonials_author-infos">
-                        <img
-                          src="images/scr-20250626-nelz.webp"
-                          loading="lazy"
-                          sizes="(max-width: 644px) 100vw, 644px"
-                          srcset="images/scr-20250626-nelz-p-500.webp 500w, images/scr-20250626-nelz.webp 644w"
-                          alt="A woman in a black jacket is looking at the camera."
-                          class="testimonials_author-pic"
-                        />
-                        <div class="testimonials_author-wrap">
-                          <div class="testimonials_author">Naomi Voss</div>
-                          <div class="testimonials_title">Creative Director at <strong>Antra</strong>®</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div data-w-id="3b76bfc8-47d1-5a9d-3020-d07cabcad899" class="testimonials_card">
-                      <div class="testimonials_wrap">
-                        <div class="testimonials_stars">
-                          <img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" /><img
-                            src="images/star.svg"
-                            loading="lazy"
-                            alt=""
-                            class="testimonials_star"
-                          /><img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" /><img
-                            src="images/star.svg"
-                            loading="lazy"
-                            alt=""
-                            class="testimonials_star"
-                          /><img src="images/star.svg" loading="lazy" alt="" class="testimonials_star" />
-                        </div>
-                        <blockquote class="testimonials_quote">
-                          “Alture’s work was minimal in form but rich in intention. They helped us express our brand
-                          with clarity and confidence.”
-                        </blockquote>
-                      </div>
-                      <div class="testimonials_author-infos">
-                        <img src="images/client.webp" loading="lazy" alt="" class="testimonials_author-pic" />
-                        <div class="testimonials_author-wrap">
-                          <div class="testimonials_author">Mark Wiliams</div>
-                          <div class="testimonials_title">Head of Brand at <strong>Velith</strong>®</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="padding-section-large"></div>
-                <div data-w-id="f47586ce-ea30-5c4f-ed5b-579217ab53c9" class="testimonials_numbers">
-                  <div class="testimonials_numbers-main">
-                    <div class="number_block">
-                      <div class="number_wrap">
-                        <div class="number_group"><div class="number_number">$</div></div>
-                        <div class="number_group _1">
-                          <div class="number_main"><div class="number_number">4</div></div>
-                          <div
-                            style="
-                              -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                            "
-                            class="number_others _1"
-                          >
-                            <div class="number_number">1</div>
-                            <div class="number_number">2</div>
-                            <div class="number_number">3</div>
-                            <div class="number_number final-number">4</div>
-                          </div>
-                        </div>
-                        <div class="number_group _2">
-                          <div class="number_main"><div class="number_number">3</div></div>
-                          <div
-                            style="
-                              -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                            "
-                            class="number_others _2"
-                          >
-                            <div class="number_number">1</div>
-                            <div class="number_number">2</div>
-                            <div class="number_number final-number">3</div>
-                          </div>
-                        </div>
-                        <div class="number_group"><div class="number_number">M</div></div>
-                      </div>
-                      <p class="number_desc">Revenue influenced by our work</p>
-                    </div>
-                    <div class="number_block">
-                      <div class="number_wrap">
-                        <div class="number_group _3">
-                          <div class="number_main"><div class="number_number">8</div></div>
-                          <div
-                            style="
-                              -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                            "
-                            class="number_others _3"
-                          >
-                            <div class="number_number">6</div>
-                            <div class="number_number">7</div>
-                            <div class="number_number final-number">8</div>
-                          </div>
-                        </div>
-                        <div class="number_group _4">
-                          <div class="number_main"><div class="number_number">6</div></div>
-                          <div
-                            style="
-                              -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                            "
-                            class="number_others _4"
-                          >
-                            <div class="number_number">4</div>
-                            <div class="number_number">5</div>
-                            <div class="number_number">6</div>
-                            <div class="number_number final-number">7</div>
-                          </div>
-                        </div>
-                        <div class="number_group"><div class="number_number">K</div></div>
-                      </div>
-                      <p class="number_desc">Leads generated for our clients</p>
-                    </div>
-                    <div class="number_block">
-                      <div class="number_wrap">
-                        <div class="number_group _5">
-                          <div class="number_main"><div class="number_number">2</div></div>
-                          <div
-                            style="
-                              -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                            "
-                            class="number_others _5"
-                          >
-                            <div class="number_number">1</div>
-                            <div class="number_number">1</div>
-                            <div class="number_number">1</div>
-                            <div class="number_number">1</div>
-                            <div class="number_number final-number">2</div>
-                          </div>
-                        </div>
-                        <div class="number_group _6">
-                          <div class="number_main"><div class="number_number">6</div></div>
-                          <div
-                            style="
-                              -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                            "
-                            class="number_others _6"
-                          >
-                            <div class="number_number">1</div>
-                            <div class="number_number">2</div>
-                            <div class="number_number">3</div>
-                            <div class="number_number">4</div>
-                            <div class="number_number">5</div>
-                            <div class="number_number final-number">6</div>
-                          </div>
-                        </div>
-                        <div class="number_group _7">
-                          <div class="number_main"><div class="number_number">8</div></div>
-                          <div
-                            style="
-                              -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                              transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                skew(0, 0);
-                            "
-                            class="number_others _7"
-                          >
-                            <div class="number_number">2</div>
-                            <div class="number_number">3</div>
-                            <div class="number_number">4</div>
-                            <div class="number_number">5</div>
-                            <div class="number_number">6</div>
-                            <div class="number_number">7</div>
-                            <div class="number_number final-number">8</div>
-                          </div>
-                        </div>
-                      </div>
-                      <p class="number_desc">Brands we&#x27;ve partnered with</p>
-                    </div>
-                  </div>
-                  <div class="spacer-large"></div>
-                  <div class="testimonials_infos">
-                    <div data-w-id="67a1b9b9-adae-bae0-1f89-3d2a565093fc" style="width: 0%" class="line"></div>
-                    <div class="spacer-small"></div>
-                    <p class="testimonials_legal-text">
-                      1 - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
-                      elementum tristique. <br />2 - Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
-                      commodo diam libero vitae erat. Aenean faucibus nibh et justo.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="padding-section-medium"></div>
-        </section> -->
-        <!-- Section Tarifs 
-        <section class="section_pricing">
-          <div class="padding-global is-tiny">
-            <div class="pricing_component">
-              <div class="padding-section-medium"></div>
-              <div class="padding-global">
-                <div class="container-xsmall">
-                  <div class="pricing_wrap">
-                    <div class="pricing_head">
-                      <div data-w-id="b027a77e-2608-4127-faa5-419568875632" class="label_wrap">
-                        <div class="label_dot"></div>
-                        <div class="text-color-white"><h2 class="text-style-label">Notre manière de travailler</h2></div>
-                      </div>
-                      <h2 data-w-id="7bddbbc7-19d8-4f7e-8774-349841e43c3b" class="pricing_heading">Format</h2>
-                    </div>
-                    <div class="pricing_blocks">
-                      <div
-                        id="w-node-d3743e10-20e5-56f2-c437-41115e695d60-e2a330fc"
-                        data-w-id="d3743e10-20e5-56f2-c437-41115e695d60"
-                        class="pricing_block"
-                      >
-                        <div class="pricing_detail">projet ponctuel</div>
-                        <div class="pricing_main">
-                          <div class="pricing_value-wrap">
-                            <h2 class="pricing_plan-name">Un besoin ponctuel, une équipe dédiée le temps du projet</h2>
 
-                          </div>
-                          <ul role="list" class="pricing_features">
-                            <li class="pricing_feature">
-                              <p class="pricing_feature-text">
-                                <span class="pricing_feature-detail">Une équipe assignée pour la durée du projet.
-                              </p>
-                            </li>
-                            <li class="pricing_feature">
-                              <p class="pricing_feature-text">
-                                <span class="pricing_feature-detail">Un seul interlocuteur, du brief à la livraison.
-
-                                </span>
-                              </p>
-                            </li>
-                            <li class="pricing_feature">
-                              <p class="pricing_feature-text">
-                                <span class="pricing_feature-detail">
-                                  Délai défini ensemble selon la nature du projet
-                                </span>
-                              </p>
-                            </li>
-                            <li class="pricing_feature">
-                              <p class="pricing_feature-text">
-                                <span class="pricing_feature-detail">
-                                  Coordination de tous les supports nécessaires 
-                                </span>
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="pricing_button-wrapper">
-                          <div class="pricing_divider">
-                            <div class="pricing_divider-line"></div>
-                            <div class="pricing_divider-label">Projet à durée déterminée</div>
-                            <div class="pricing_divider-line"></div>
-                          </div>
-                          <a
-                            data-w-id="32138e7e-ecb1-045a-b917-9c0c3c72ca1f"
-                            href="/contact.html"
-                            class="button-gradient w-inline-block"
-                            ><div class="button-grad_inner">
-                              <div class="button-grad_gradient">
-                                <div
-                                  style="
-                                    -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                      skew(0, 0);
-                                  "
-                                  class="button-grad_ball ball-1"
-                                ></div>
-                                <div
-                                  style="
-                                    -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                      skew(0, 0);
-                                  "
-                                  class="button-grad_ball gradient__ball--2"
-                                ></div>
-                              </div>
-                              <div class="button-grad_text">Demander un devis</div>
-                            </div>
-                            <div class="button-grad_glow">
-                              <div
-                                style="
-                                  -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                    rotateZ(0) skew(0, 0);
-                                  -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                    rotateZ(0) skew(0, 0);
-                                  -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                    skew(0, 0);
-                                  transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                    skew(0, 0);
-                                "
-                                class="button-grad_ball ball-1"
-                              ></div>
-                              <div
-                                style="
-                                  -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                    rotateZ(0) skew(0, 0);
-                                  -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                    rotateZ(0) skew(0, 0);
-                                  -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                    skew(0, 0);
-                                  transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                    skew(0, 0);
-                                "
-                                class="button-grad_ball gradient__ball--2"
-                              ></div></div
-                          ></a>
-                        </div>
-                      </div>
-                      <div data-w-id="27810c9c-835c-aab2-e3db-9d8077ec18f0" class="pricing_block">
-                        <div class="pricing_detail">Sur mesure</div>
-                        <div class="pricing_main">
-                          <div class="pricing_value-wrap">
-                            <h2 class="pricing_plan-name">Une communication qui vit dans le temps, pas juste le temps d'un projet</h2>
-                          </div>
-                          <ul role="list" class="pricing_features">
-                            <li class="pricing_feature">
-                              <p class="pricing_feature-text">
-                                <span class="pricing_feature-detail">
-                                  Support continu sur l'ensemble de vos voies de communication.
-                                </span>
-                              </p>
-                            </li>
-                            <li class="pricing_feature">
-                              <p class="pricing_feature-text">
-                                <span class="pricing_feature-detail">
-                                  Le même interlocuteur constamment . 
-                                </span>
-                              </p>
-                            </li>
-                            <li class="pricing_feature">
-                              <p class="pricing_feature-text">
-                                <span class="pricing_feature-detail">
-                                  Priorité sur vos demandes
-                                </span> 
-                              </p>
-                            </li>
-                            <li class="pricing_feature">
-                              <p class="pricing_feature-text">
-                                <span class="pricing_feature-detail">
-                                  Accès à notre réseau d'amis du collectif selon les besoins 
-                                </span>
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="pricing_button-wrapper">
-                          <div class="pricing_divider">
-                            <div class="pricing_divider-line"></div>
-                            <div class="pricing_divider-label">Accompagnement continu</div>
-                            <div class="pricing_divider-line"></div>
-                          </div>
-                          <a
-                            data-w-id="27810c9c-835c-aab2-e3db-9d8077ec191b"
-                            href="/contact.html"
-                            class="button-gradient is-light w-inline-block"
-                            ><div class="button-grad_inner">
-                              <div class="button-grad_gradient">
-                                <div
-                                  style="
-                                    -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                      skew(0, 0);
-                                  "
-                                  class="button-grad_ball ball-1"
-                                ></div>
-                                <div
-                                  style="
-                                    -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                      rotateZ(0) skew(0, 0);
-                                    transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                      skew(0, 0);
-                                  "
-                                  class="button-grad_ball gradient__ball--2"
-                                ></div>
-                              </div>
-                              <div class="button-grad_text">Nous contacter</div>
-                            </div>
-                            <div class="button-grad_glow">
-                              <div
-                                style="
-                                  -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                    rotateZ(0) skew(0, 0);
-                                  -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                    rotateZ(0) skew(0, 0);
-                                  -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                    skew(0, 0);
-                                  transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                    skew(0, 0);
-                                "
-                                class="button-grad_ball ball-1"
-                              ></div>
-                              <div
-                                style="
-                                  -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                    rotateZ(0) skew(0, 0);
-                                  -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
-                                    rotateZ(0) skew(0, 0);
-                                  -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                    skew(0, 0);
-                                  transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
-                                    skew(0, 0);
-                                "
-                                class="button-grad_ball gradient__ball--2"
-                              ></div></div
-                          ></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spacer-medium"></div>
-                    <div class="pricing_info-wrap">
-                      <p data-w-id="143ac4b0-1ccd-4e11-ae17-1bb64b333cb4" class="pricing_info-text">
-                        Un projet ponctuel ou un accompagnement dans la durée : à vous de choisir le format, on s'adapte au reste.
-                        Chaque collaboration est pensée selon vos besoins, votre calendrier et votre ambition.
-
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="padding-section-medium"></div>
-            </div>
-          </div>
-        </section>--> 
         <div class="line"></div>
+
+        <!-- Section Équipe : grille 2×2 miroir (médaillon photo à taille naturelle, texte toujours flanqué sur le bord extérieur), fond noir sobre, boutons menthe. Mise en avant "spotlight" au survol/clavier (tilt léger du médaillon + graisse du numéro qui s'anime) plutôt qu'un accordéon qui s'élargit — aucune carte plus importante qu'une autre au repos -->
+        <section class="team" id="section-equipe">
+          <div class="padding-global">
+            <div class="team_inner">
+              <div class="team_head">
+                <div class="label_wrap">
+                  <div class="label_dot"></div>
+                  <h2 class="text-style-label">L'Équipe</h2>
+                </div>
+                <div class="spacer-small"></div>
+              </div>
+
+              <div class="spacer-large is-tablet-smaller"></div>
+
+              <div class="team_grid">
+                <!-- 01 Tino : colonne gauche, texte à gauche / médaillon à droite, aligné en bas -->
+                <a href="equipe/tino.html" class="team_card" data-index="0">
+                  <div class="team_card-media is-square">
+                    <img
+                      src="images/equipe-tino.webp"
+                      alt="Portrait de Tino, responsable audio chez ZigZag Visuals"
+                      loading="lazy"
+                      class="team_card-img"
+                      style="object-position: center 22%; --img-zoom: 1.18; --img-pan-x: 22px; --img-pan-y: 20px;"
+                    />
+                  </div>
+                  <div class="team_card-body">
+                    <div class="team_card-num">CHHATH</div>
+                    <h3 class="team_card-name">Tino</h3>
+                    <div class="team_card-role">Audio</div>
+                    <p class="team_card-desc">Tino façonne le son de vos projets, du premier enregistrement au mixage final.</p>
+                    <div class="team_card-cta">
+                      <span>Découvrir son travail</span>
+                      <span class="team_card-cta-arrow" aria-hidden="true">→</span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- 02 Noah : colonne droite, médaillon à gauche / texte à droite, aligné en bas -->
+                <a href="/perdu.html" class="team_card" data-index="1">
+                  <div class="team_card-media is-square">
+                    <img
+                      src="images/equipe-noah.webp"
+                      alt="Portrait de Noah, photographe chez ZigZag Visuals"
+                      loading="lazy"
+                      class="team_card-img"
+                      style="object-position: center 25%;"
+                    />
+                  </div>
+                  <div class="team_card-body">
+                    <div class="team_card-num">BROGER</div>
+                    <h3 class="team_card-name">Noah</h3>
+                    <div class="team_card-role">Photographie</div>
+                    <p class="team_card-desc">Noah capture l'instant juste, sans jamais forcer la pose — des images pensées pour durer.</p>
+                    <div class="team_card-cta">
+                      <span>Découvrir son travail</span>
+                      <span class="team_card-cta-arrow" aria-hidden="true">→</span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- 03 Maxime : colonne gauche, texte à gauche / médaillon à droite, aligné en bas -->
+                <a href="/perdu.html" class="team_card" data-index="2">
+                  <div class="team_card-media is-portrait">
+                    <img
+                      src="images/equipe-maxime.webp"
+                      alt="Portrait de Maxime, coordination et relation client chez ZigZag Visuals"
+                      loading="lazy"
+                      class="team_card-img"
+                      style="object-position: center 12%; --img-zoom: 1.3; --img-pan-y: 30px;"
+                    />
+                  </div>
+                  <div class="team_card-body">
+                    <div class="team_card-num">GUBLER</div>
+                    <h3 class="team_card-name">Maxime</h3>
+                    <div class="team_card-role">Coordination &amp; relation client</div>
+                    <p class="team_card-desc">Maxime orchestre chaque mandat et reste votre interlocuteur unique, du brief à la livraison.</p>
+                    <div class="team_card-cta">
+                      <span>Découvrir son travail</span>
+                      <span class="team_card-cta-arrow" aria-hidden="true">→</span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- 04 Benoît : colonne droite, médaillon à gauche / texte à droite, aligné en bas -->
+                <a href="https://benoitnichols.ch" class="team_card" data-index="3">
+                  <div class="team_card-media is-portrait">
+                    <img
+                      src="images/equipe-benoit.webp"
+                      alt="Portrait de Benoît, vidéographe chez ZigZag Visuals"
+                      loading="lazy"
+                      class="team_card-img"
+                      style="object-position: center 10%; --img-zoom: 1.12; --img-pan-y: 14px;"
+                    />
+                  </div>
+                  <div class="team_card-body">
+                    <div class="team_card-num">NICHOLS</div>
+                    <h3 class="team_card-name">Benoît</h3>
+                    <div class="team_card-role">Vidéographie</div>
+                    <p class="team_card-desc">Benoît met vos projets en mouvement, du cadrage au montage, plan après plan.</p>
+                    <div class="team_card-cta">
+                      <span>Découvrir son travail</span>
+                      <span class="team_card-cta-arrow" aria-hidden="true">→</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="spacer-large is-tablet-smaller"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="line"></div>
+
         <!-- Section FAQ : titre en haut, questions à gauche, photo d'équipe à droite. Cliquer une question superpose sa réponse sur la photo, qui se floute (verre dépoli) ; une seule question ouverte à la fois -->
         <section class="faq" id="faq">
           <div class="padding-section-medium"></div>
@@ -4165,6 +3984,54 @@
             }
           });
         }
+      })();
+    </script>
+    <!-- Interactions de la section Équipe : survol/focus clavier met une carte en avant (numéro qui s'anime en graisse + léger tilt du médaillon qui suit le curseur), les trois autres s'atténuent. Le contenu n'est jamais caché (contrairement à Services) donc pas d'état "épinglé" à gérer : perdre le focus ramène tout au neutre. Le tilt est désactivé sous prefers-reduced-motion et sur les appareils sans pointeur fin -->
+    <script>
+      (function () {
+        var grid = document.querySelector(".team_grid");
+        var cards = document.querySelectorAll(".team_card");
+        if (!grid || !cards.length) return;
+
+        var hoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function setFocus(card) {
+          cards.forEach(function (c) {
+            c.classList.toggle("is-focus", c === card);
+          });
+          grid.classList.toggle("has-focus", !!card);
+        }
+
+        cards.forEach(function (card) {
+          var media = card.querySelector(".team_card-media");
+
+          if (hoverCapable) {
+            card.addEventListener("mouseenter", function () {
+              setFocus(card);
+            });
+            card.addEventListener("mouseleave", function () {
+              setFocus(null);
+              if (media) media.style.transform = "";
+            });
+            if (!reduceMotion && media) {
+              card.addEventListener("mousemove", function (e) {
+                var r = card.getBoundingClientRect();
+                var px = (e.clientX - r.left) / r.width - 0.5;
+                var py = (e.clientY - r.top) / r.height - 0.5;
+                var max = 6;
+                media.style.transform = "rotateY(" + (px * max) + "deg) rotateX(" + (-py * max) + "deg)";
+              });
+            }
+          }
+          // La carte entière est le lien (<a>), donc nativement focusable au clavier — pas besoin d'un bouton enfant séparé pour porter le focus
+          card.addEventListener("focus", function () {
+            setFocus(card);
+          });
+          card.addEventListener("blur", function () {
+            setFocus(null);
+          });
+        });
       })();
     </script>
     <!-- Interactions de la section FAQ : ouvrir une question floute la photo et affiche la réponse par-dessus ; une seule question ouverte à la fois -->

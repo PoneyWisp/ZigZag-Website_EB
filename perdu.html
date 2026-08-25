@@ -66,6 +66,38 @@
         }
       }
     </style>
+    <!-- Section page perdue : sous-titre qui apparaît juste après le titre "Woups", même animation fondu + léger déplacement vers le haut, avec un léger décalage. Portée desktop/tablette uniquement, comme l'animation du titre (inactive sous 768px) -->
+    <style>
+      @media (min-width: 768px) {
+        .perdu_subtitle {
+          opacity: 0;
+          transform: translate3d(0, 0.5rem, 0);
+          animation:
+            perdu-subtitle-move 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0.45s forwards,
+            perdu-subtitle-fade 0.5s ease 0.45s forwards;
+        }
+      }
+
+      @keyframes perdu-subtitle-move {
+        to {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      @keyframes perdu-subtitle-fade {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .perdu_subtitle {
+          animation: none !important;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
     <!-- Détecte si le site est consulté sur un écran tactile -->
     <script type="text/javascript">
       !(function (o, c) {
@@ -378,16 +410,9 @@
                       <div class="navbar_link-text _2">Accueil</div>
                     </div>
                     <div class="navbar_link-dot"></div></a
-                  ><a href="#section-services" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
-                    ><div class="navbar_link-texts">
-                      <div class="navbar_link-text _1">Services</div>
-                      <div class="navbar_link-text _2">Services</div>
-                    </div>
-                    <div class="navbar_link-dot"></div
-                  ></a>
-                  <div class="navbar_works-link">
+                  ><div class="navbar_works-link">
                     <a
-                      href="#projets"
+                      href="/#projets"
                       data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace"
                       class="navbar_link w-inline-block"
                       ><div class="navbar_link-texts">
@@ -397,6 +422,20 @@
                     >
                     <div class="navbar_works-number-wrap"><div class="navbar_works-number">1</div></div>
                   </div>
+                  <a href="/#section-services" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
+                    ><div class="navbar_link-texts">
+                      <div class="navbar_link-text _1">Services</div>
+                      <div class="navbar_link-text _2">Services</div>
+                    </div>
+                    <div class="navbar_link-dot"></div
+                  ></a>
+                  <a href="/#section-equipe" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
+                    ><div class="navbar_link-texts">
+                      <div class="navbar_link-text _1">Équipe</div>
+                      <div class="navbar_link-text _2">Équipe</div>
+                    </div>
+                    <div class="navbar_link-dot"></div
+                  ></a>
                   <!-- attente portfolio <a href="/blog/1" data-w-id="df70bfa9-fec6-06b6-1b9f-9402e5712ace" class="navbar_link w-inline-block"
                     ><div class="navbar_link-texts">
                       <div class="navbar_link-text _1">Portfolio</div>
@@ -440,6 +479,15 @@
                             </div>
                             <div class="menu_link-dot"></div></a
                           ><a
+                            href="/index.html#projets"
+                            data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
+                            class="menu_link w-inline-block"
+                            ><div class="menu_link-texts">
+                              <div class="menu_link-text _1">Projets</div>
+                              <div class="menu_link-text _2">Projets</div>
+                            </div>
+                            <div class="menu_link-dot"></div></a
+                          ><a
                             href="/index.html#section-services"
                             data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
                             class="menu_link w-inline-block"
@@ -449,12 +497,12 @@
                             </div>
                             <div class="menu_link-dot"></div></a
                           ><a
-                            href="/index.html#projets"
+                            href="/index.html#section-equipe"
                             data-w-id="34ea61be-4150-c0ab-66d0-326592b2e049"
                             class="menu_link w-inline-block"
                             ><div class="menu_link-texts">
-                              <div class="menu_link-text _1">Projets</div>
-                              <div class="menu_link-text _2">Projets</div>
+                              <div class="menu_link-text _1">Équipe</div>
+                              <div class="menu_link-text _2">Équipe</div>
                             </div>
                             <div class="menu_link-dot"></div>
                           </a>
@@ -572,7 +620,9 @@
           <div class="padding-global">
             <div class="work-list_component">
               <div class="work-list_heading-wrap">
-                <h2 data-w-id="cb3ed43d-4fec-c076-6ad9-ca979cbce945" class="heading-style-display">Woups ! On s'est perdu...</h2>
+                <h2 data-w-id="cb3ed43d-4fec-c076-6ad9-ca979cbce945" class="heading-style-display">Woups ! On s'est perdu...</h2> 
+                <br><br>
+                <h3 class="perdu_subtitle">La page est toujours en construction, revenez plus tard !</h3>
               <div class="spacer-xlarge"></div>
               </div>
             </div>
