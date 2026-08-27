@@ -420,6 +420,28 @@
         color: rgba(255, 255, 255, .35);
       }
 
+      /* Lien LinkedIn : même intention que .footer_intro-link (icône + texte, teinte menthe au survol) — placé au plus près du nom/rôle plutôt que dans une barre d'icônes séparée */
+      .tino-feature_linkedin {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--fixed--0-5rem);
+        margin-top: var(--fixed--0-75rem);
+        font-size: var(--fixed--0-875rem);
+        color: rgba(255, 255, 255, .7);
+        transition: color .3s ease;
+      }
+
+      .tino-feature_linkedin-icon {
+        width: 1.1rem;
+        height: 1.1rem;
+        filter: invert(1);
+      }
+
+      .tino-feature_linkedin:hover,
+      .tino-feature_linkedin:focus-visible {
+        color: #ccfccc;
+      }
+
       /* Sous 768px, le H1 lui-même retombe à 3rem (token du template) : plus besoin de la lettre, l'empilement redevient naturel */
       @media screen and (max-width: 767px) {
         .tino-feature_letter {
@@ -848,6 +870,15 @@
         letter-spacing: -.01em;
       }
 
+      /* Crédit "poste · boîte de prod" : sous le titre plutôt que fondu dans l'eyebrow (qui reste la mention du diffuseur/rôle court), pour que Brates soit lisible comme la société de production, pas confondu avec le diffuseur */
+      .tino-mindmap_panel-agency {
+        margin: 0 0 var(--fixed--0-75rem);
+        font-family: var(--_typography---font-family--detail);
+        font-size: .75rem;
+        letter-spacing: .02em;
+        color: #ccfccc;
+      }
+
       .tino-mindmap_panel-body p {
         margin: 0 0 var(--fixed--0-5rem);
         color: rgba(255, 255, 255, .82);
@@ -1067,6 +1098,178 @@
         .tino-mindmap_scrim {
           transition: none !important;
           animation: none !important;
+        }
+      }
+    </style>
+
+    <!-- Découvrir le reste de l'équipe : volontairement sur fond clair, jamais noir — le noir de .tino-feature est l'espace propre à Tino, pas à partager. Traitement éditorial plutôt qu'une troisième variante de carte déjà vue ailleurs (ni le panneau verre de la homepage, ni un médaillon rond en avatar) : un grand repère mono (ghost numeral) au-dessus d'un portrait carré plein, jamais encadré, séparateurs pointillés verticaux entre les trois — write dans le même esprit que les autres sections (chiffres mono, trait qui se dessine) mais une composition qui n'existe nulle part ailleurs sur le site. Accent orange-rouge au survol (jamais le menthe, réservé au fond noir — voir CLAUDE.md) -->
+    <style>
+      .tino-more-team {
+        background-color: var(--_colors---grey--50);
+        padding-top: var(--section--small);
+        padding-bottom: var(--section--small);
+      }
+
+      /* Même largeur que l'écrin vidéo d'Alice (.alice-feature_inner sur la homepage), pour donner au bloc un gabarit de référence cohérent avec le reste du site plutôt qu'une largeur arbitraire — nettement moins haut que cette vidéo malgré tout */
+      .tino-more-team_inner {
+        width: 100%;
+        max-width: 56rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .tino-more-team_head .text-style-label {
+        color: var(--_colors---primary--black);
+      }
+
+      /* Groupe centré, resserré, avec plus d'espace à l'extérieur (entre Noah/Benoît et le bord du conteneur) qu'à l'intérieur (entre les trois collaborateurs) — l'inverse d'une répartition en pleine largeur. Largeur d'item fixe (= largeur du portrait) : sans ça, un rôle plus long que la photo (ex. Maxime) élargit sa carte et décale le trait suivant, cassant la symétrie */
+      .tino-more-team_grid {
+        display: flex;
+        justify-content: center;
+        gap: var(--fixed--3rem);
+      }
+
+      .tino-more-team_item {
+        position: relative;
+        display: block;
+        flex: 0 0 12rem;
+        text-decoration: none;
+        color: var(--_colors---primary--black);
+      }
+
+      .tino-more-team_item + .tino-more-team_item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: calc(var(--fixed--3rem) / -2);
+        border-left: 1px dotted var(--_colors---grey--200);
+      }
+
+      /* Portrait modeste (pas étiré) : ce bloc reste un signal de navigation secondaire, pas une section qui rivalise en présence avec l'espace de Tino au-dessus */
+      .tino-more-team_photo {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: var(--border-radius--medium);
+        background-color: var(--_colors---grey--100, #e9e7e4);
+      }
+
+      .tino-more-team_photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(70%);
+        transition: filter .5s ease, transform .6s cubic-bezier(.16, 1, .3, 1);
+      }
+
+      .tino-more-team_item:hover .tino-more-team_photo img,
+      .tino-more-team_item:focus-visible .tino-more-team_photo img {
+        filter: grayscale(0%);
+        transform: scale(1.03);
+      }
+
+      .tino-more-team_grid:hover .tino-more-team_item:not(:hover) .tino-more-team_photo img {
+        filter: grayscale(70%) brightness(1.04);
+        opacity: .6;
+      }
+
+      /* Tout centré, y compris le texte — le portrait remplit toute la largeur de l'item, un texte casé à gauche en dessous aurait semblé désaligné par rapport à lui */
+      .tino-more-team_meta {
+        margin-top: var(--fixed--1rem);
+        text-align: center;
+      }
+
+      .tino-more-team_name {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        font-size: var(--fixed--1-5rem);
+        font-weight: var(--_typography---font-weight--semibold);
+        letter-spacing: -.01em;
+      }
+
+      /* Trait qui se dessine au survol, depuis le centre vers les deux côtés (pas de gauche à droite) pour rester cohérent avec un nom centré — jamais un agrandissement du nom (leçon FAQ, voir CLAUDE.md) */
+      .tino-more-team_name::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -.2rem;
+        width: 0;
+        height: 1px;
+        background-color: var(--_colors---primary--accent);
+        transform: translateX(-50%);
+        transition: width .45s cubic-bezier(.16, 1, .3, 1);
+      }
+
+      .tino-more-team_item:hover .tino-more-team_name::after,
+      .tino-more-team_item:focus-visible .tino-more-team_name::after {
+        width: 100%;
+      }
+
+      /* Nom de famille en mono au-dessus du prénom, écho du traitement utilisé dans l'en-tête de Tino lui-même (.tino-feature_surname) et de l'ordre déjà utilisé sur les cartes Équipe de la homepage */
+      .tino-more-team_surname {
+        display: block;
+        margin-bottom: var(--fixed--0-25rem);
+        font-family: var(--_typography---font-family--detail);
+        font-size: var(--fixed--0-75rem);
+        font-weight: 100;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--_colors---grey--300);
+      }
+
+      .tino-more-team_role {
+        display: block;
+        margin-top: var(--fixed--0-5rem);
+        font-size: var(--fixed--0-8125rem, .8125rem);
+        color: var(--_colors---grey--300);
+      }
+
+      /* Sous 767px : on garde les 3 côte à côte sur une seule ligne (pas d'empilement) — la grille équirépartie remplace le flex centré (pas de place pour de grandes marges extérieures sur un petit écran), le portrait remplit toute sa colonne donc le padding symétrique classique suffit à garder le trait centré, pas besoin du ::before dédié utilisé au-dessus de 767px */
+      @media screen and (max-width: 767px) {
+        /* gap (pas du padding par item) : un padding posé uniquement sur les items 2/3 (pour loger le trait) les rétrécissait par rapport à Noah, dont le portrait remplissait alors une colonne "pleine" — les 3 colonnes doivent rester rigoureusement égales */
+        .tino-more-team_grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: var(--fixed--1rem);
+        }
+
+        .tino-more-team_item {
+          flex-basis: auto;
+          padding: 0;
+        }
+
+        .tino-more-team_item + .tino-more-team_item {
+          padding: 0;
+        }
+
+        .tino-more-team_item + .tino-more-team_item::before {
+          left: calc(var(--fixed--1rem) / -2);
+        }
+
+        .tino-more-team_photo {
+          width: 100%;
+        }
+
+        .tino-more-team_meta {
+          margin-top: var(--fixed--0-5rem);
+        }
+
+        .tino-more-team_name {
+          font-size: var(--fixed--1rem);
+        }
+
+        .tino-more-team_role {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .tino-more-team_photo img,
+        .tino-more-team_name::after {
+          transition: none !important;
         }
       }
     </style>
@@ -1311,7 +1514,15 @@
                   <div class="tino-feature_letter-role">
                     <p class="tino-feature_role">Responsable de projet &amp; Ingénieur du son</p>
                     <p class="tino-feature_employer">ZigZag Visuals</p>
-                    <div class="tino-feature_signal">12 références · mon savoir faire</div>
+                    <div class="tino-feature_signal">Mon expérience en 13 références</div>
+                    <a
+                      href="https://www.linkedin.com/in/tino-chhath-8b66522b0/"
+                      target="_blank"
+                      rel="noopener"
+                      class="tino-feature_linkedin"
+                      > Mon profil LinkedIn 
+                      <img src="../images/social-linkedin.svg" loading="lazy" alt="" class="tino-feature_linkedin-icon" aria-hidden="true"/></a
+                    >
                   </div>
                 </div>
               </div>
@@ -1362,7 +1573,7 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="francetv" style="--node-angle: 60deg;">
+                      <div class="tino-mindmap_node" data-org="francetv" style="--node-angle: 51.43deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-francetv" aria-expanded="false" aria-controls="tino-panel-francetv">
                           <span class="tino-mindmap_node-inner">
@@ -1372,7 +1583,18 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="eurosport" style="--node-angle: 120deg;">
+                      <!-- L'Équipe : référence séparée de France TV (les deux diffusent les mêmes mandats mais ce sont deux chaînes distinctes) -->
+                      <div class="tino-mindmap_node" data-org="lequipe" style="--node-angle: 102.86deg;">
+                        <span class="tino-mindmap_spoke" aria-hidden="true"></span>
+                        <button type="button" class="tino-mindmap_node-btn" id="tino-node-lequipe" aria-expanded="false" aria-controls="tino-panel-lequipe">
+                          <span class="tino-mindmap_node-inner">
+                            <span class="tino-mindmap_node-mark"><img src="../images/partners/lequipe.png" class="tino-mindmap_node-logo" loading="lazy" alt="L'Équipe" /></span>
+                            <span class="tino-mindmap_node-label">L'Équipe</span>
+                          </span>
+                        </button>
+                      </div>
+
+                      <div class="tino-mindmap_node" data-org="eurosport" style="--node-angle: 154.29deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-eurosport" aria-expanded="false" aria-controls="tino-panel-eurosport">
                           <span class="tino-mindmap_node-inner">
@@ -1382,7 +1604,7 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="rts" style="--node-angle: 180deg;">
+                      <div class="tino-mindmap_node" data-org="rts" style="--node-angle: 205.71deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-rts" aria-expanded="false" aria-controls="tino-panel-rts">
                           <span class="tino-mindmap_node-inner">
@@ -1392,7 +1614,7 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="uefa" style="--node-angle: 240deg;">
+                      <div class="tino-mindmap_node" data-org="uefa" style="--node-angle: 257.14deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-uefa" aria-expanded="false" aria-controls="tino-panel-uefa">
                           <span class="tino-mindmap_node-inner">
@@ -1402,7 +1624,7 @@
                         </button>
                       </div>
 
-                      <div class="tino-mindmap_node" data-org="hockeysuisse" style="--node-angle: 300deg;">
+                      <div class="tino-mindmap_node" data-org="hockeysuisse" style="--node-angle: 308.57deg;">
                         <span class="tino-mindmap_spoke" aria-hidden="true"></span>
                         <button type="button" class="tino-mindmap_node-btn" id="tino-node-hockeysuisse" aria-expanded="false" aria-controls="tino-panel-hockeysuisse">
                           <span class="tino-mindmap_node-inner">
@@ -1503,6 +1725,10 @@
                       <span class="tino-mindmap_node-mark"><img src="../images/partners/france-tv.png" class="tino-mindmap_node-logo" loading="lazy" alt="France TV" /></span>
                       <span class="tino-mindmap_mobile-label">France TV</span>
                     </button>
+                    <button type="button" class="tino-mindmap_mobile-tile" data-org="lequipe" aria-controls="tino-panel-lequipe">
+                      <span class="tino-mindmap_node-mark"><img src="../images/partners/lequipe.png" class="tino-mindmap_node-logo" loading="lazy" alt="L'Équipe" /></span>
+                      <span class="tino-mindmap_mobile-label">L'Équipe</span>
+                    </button>
                     <button type="button" class="tino-mindmap_mobile-tile" data-org="eurosport" aria-controls="tino-panel-eurosport">
                       <span class="tino-mindmap_node-mark"><img src="../images/partners/eurosport.png" class="tino-mindmap_node-logo" loading="lazy" alt="Eurosport" /></span>
                       <span class="tino-mindmap_mobile-label">Eurosport</span>
@@ -1569,8 +1795,9 @@
                     <div class="tino-mindmap_panel" id="tino-panel-dazn" role="region" aria-labelledby="tino-panel-dazn-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/dazn.svg" loading="lazy" alt="" /></div>
-                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son / Brates SA</div>
+                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-dazn-title">DAZN</h3>
+                      <div class="tino-mindmap_panel-agency">Chef de car · Ingénieur du son · Brates</div>
                       <div class="tino-mindmap_panel-body">
                         <p>Plus de 50 matchs de Basketball Champions League couverts pour DAZN, à travers l'Europe.</p>
                       </div>
@@ -1587,8 +1814,21 @@
                     <div class="tino-mindmap_panel" id="tino-panel-francetv" role="region" aria-labelledby="tino-panel-francetv-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/france-tv.png" loading="lazy" alt="" /></div>
-                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son / Brates SA</div>
-                      <h3 class="tino-mindmap_panel-title" id="tino-panel-francetv-title">France TV / L'Équipe</h3>
+                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son</div>
+                      <h3 class="tino-mindmap_panel-title" id="tino-panel-francetv-title">France TV</h3>
+                      <div class="tino-mindmap_panel-agency">Chef de car · Ingénieur du son · Brates</div>
+                      <div class="tino-mindmap_panel-body">
+                        <p>Finale de la Coupe de France de Hockey 2025, Bercy — chef de car &amp; ingénieur du son.</p>
+                        <p>Grand Prix de saut à ski d'été, Courchevel 2025 — ingénieur du son.</p>
+                      </div>
+                    </div>
+
+                    <div class="tino-mindmap_panel" id="tino-panel-lequipe" role="region" aria-labelledby="tino-panel-lequipe-title">
+                      <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
+                      <div class="tino-mindmap_panel-logo"><img src="../images/partners/lequipe.png" loading="lazy" alt="" /></div>
+                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son</div>
+                      <h3 class="tino-mindmap_panel-title" id="tino-panel-lequipe-title">L'Équipe</h3>
+                      <div class="tino-mindmap_panel-agency">Chef de car · Ingénieur du son · Brates</div>
                       <div class="tino-mindmap_panel-body">
                         <p>Finale de la Coupe de France de Hockey 2025, Bercy — chef de car &amp; ingénieur du son.</p>
                         <p>Grand Prix de saut à ski d'été, Courchevel 2025 — ingénieur du son.</p>
@@ -1598,8 +1838,9 @@
                     <div class="tino-mindmap_panel" id="tino-panel-eurosport" role="region" aria-labelledby="tino-panel-eurosport-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/eurosport.png" loading="lazy" alt="" /></div>
-                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son / Brates SA</div>
+                      <div class="tino-mindmap_panel-eyebrow">Chef de car • ingénieur du son</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-eurosport-title">Eurosport</h3>
+                      <div class="tino-mindmap_panel-agency">Chef de car · Ingénieur du son · Brates</div>
                       <div class="tino-mindmap_panel-body">
                         <p>Finale de la Coupe de France de Hockey 2025, Bercy — chef de car &amp; ingénieur du son.</p>
                         <p>Grand Prix de saut à ski d'été, Courchevel 2025 — ingénieur du son.</p>
@@ -1669,10 +1910,10 @@
                     <div class="tino-mindmap_panel" id="tino-panel-rts" role="region" aria-labelledby="tino-panel-rts-title">
                       <button type="button" class="tino-mindmap_panel-close" aria-label="Fermer">×</button>
                       <div class="tino-mindmap_panel-logo"><img src="../images/partners/rts.png" loading="lazy" alt="" /></div>
-                      <div class="tino-mindmap_panel-eyebrow">Travail actuel</div>
+                      <div class="tino-mindmap_panel-eyebrow">Employeur actuel · Responsable de projet</div>
                       <h3 class="tino-mindmap_panel-title" id="tino-panel-rts-title">RTS</h3>
                       <ul class="tino-mindmap_panel-groups">
-                        <li><span class="tino-mindmap_panel-group-label">Qualifications UEFA</span>FC Sion · FC Thoune</li>
+                        <li><span class="tino-mindmap_panel-group-label">Qualifications Conference League &amp; Europa League</span>FC Sion · FC Thoune</li>
                         <li><span class="tino-mindmap_panel-group-label">Super League</span>Servette FC · FC Lausanne-Sport · FC Sion · Yverdon Sport FC</li>
                         <li><span class="tino-mindmap_panel-group-label">Challenge League</span>Neuchâtel Xamax FCS · Stade Lausanne Ouchy · Stade Nyonnais · Étoile Carouge FC</li>
                         <li><span class="tino-mindmap_panel-group-label">AXA Women's Super League</span>Servette FC Chênois Féminin · Yverdon Sport Féminin</li>
@@ -1724,6 +1965,55 @@
 
               <!-- Repli mobile : assombrit l'arrière-plan derrière la grande fiche superposée (#tino-mindmap-detail lui-même se réancre en position:fixed sous 991px, voir CSS — mêmes panneaux que le desktop, aucune duplication) -->
               <div class="tino-mindmap_scrim" id="tino-mindmap-scrim" aria-hidden="true"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Découvrir le reste de l'équipe : sur fond clair, en registre éditorial (repère mono + portrait carré nu, sans encadré ni médaillon) — pas une répétition de la section Équipe de la homepage, et jamais sur le noir qui reste l'espace propre de Tino -->
+        <section class="tino-more-team">
+          <div class="padding-global">
+            <div class="tino-more-team_inner">
+              <div class="line"></div>
+              <div class="spacer-large"></div>
+              <div class="tino-more-team_head label_wrap">
+                <div class="label_dot"></div>
+                <h2 class="text-style-label">Le reste de l'équipe</h2>
+              </div>
+              <div class="spacer-large is-tablet-smaller"></div>
+              <div class="tino-more-team_grid">
+                <a href="../perdu.html" class="tino-more-team_item">
+                  <div class="tino-more-team_photo">
+                    <img src="../images/equipe-noah.webp" loading="lazy" alt="Portrait de Noah, photographe chez ZigZag Visuals" style="object-position: center 22%;" />
+                  </div>
+                  <div class="tino-more-team_meta">
+                    <span class="tino-more-team_surname">Broger</span>
+                    <h3 class="tino-more-team_name">Noah</h3>
+                    <span class="tino-more-team_role">Photographie</span>
+                  </div>
+                </a>
+                <a href="../perdu.html" class="tino-more-team_item">
+                  <div class="tino-more-team_photo">
+                    <img src="../images/equipe-maxime.webp" loading="lazy" alt="Portrait de Maxime, coordination et relation client chez ZigZag Visuals" style="object-position: center 15%;" />
+                  </div>
+                  <div class="tino-more-team_meta">
+                    <span class="tino-more-team_surname">Gubler</span>
+                    <h3 class="tino-more-team_name">Maxime</h3>
+                    <span class="tino-more-team_role">Coordination &amp; relation client</span>
+                  </div>
+                </a>
+                <a href="https://benoitnichols.ch" target="_blank" rel="noopener" class="tino-more-team_item">
+                  <div class="tino-more-team_photo">
+                    <img src="../images/equipe-benoit.webp" loading="lazy" alt="Portrait de Benoît, vidéographe chez ZigZag Visuals" style="object-position: center 12%;" />
+                  </div>
+                  <div class="tino-more-team_meta">
+                    <span class="tino-more-team_surname">Nichols</span>
+                    <h3 class="tino-more-team_name">Benoît</h3>
+                    <span class="tino-more-team_role">Vidéographie</span>
+                  </div>
+                </a>
+              </div>
+              <div class="spacer-large"></div>
+              <div class="line"></div>
             </div>
           </div>
         </section>
