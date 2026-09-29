@@ -789,11 +789,11 @@
         <hr>
         <h2>Le reste de l'équipe.</h2>
         <div class="team-grid">
-          <div class="team-card"><img class="photo" src="/projet_Glion_VS/images/portrait/port_ben.webp" alt="Benoît Nichols" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Benoît Nichols</div><div class="role">Cadre et opération caméra</div></div>
-          <div class="team-card"><img class="photo" src="/projet_Glion_VS/images/portrait/port_luca.webp" alt="Luca Molinari" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Luca Molinari</div><div class="role">Interviews, prise de contact</div></div>
-          <div class="team-card"><img class="photo" src="/projet_Glion_VS/images/portrait/20260719_PhotoSiteWebZigZag_0030.webp" alt="Maxime Gubler" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Maxime Gubler</div><div class="role">Photographies BTS, coordination</div></div>
-          <div class="team-card"><img class="photo" src="/projet_Glion_VS/images/portrait/port_andrea.webp" alt="Andrea Molinari" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Andrea Molinari</div><div class="role">Logistique, transport, claps</div></div>
-          <div class="team-card"><img class="photo" src="/projet_Glion_VS/images/ethan_lefantome.webp" alt="Ethan Broger" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Ethan Broger</div><div class="role">Réalisation, co-écriture, site web</div></div>
+          <a class="team-card" href="https://benoitnichols.ch/" target="_blank" rel="noopener noreferrer"><img class="photo" src="/projet_Glion_VS/images/portrait/port_ben.webp" alt="Benoît Nichols" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Benoît Nichols</div><div class="role">Cadre et opération caméra</div></a>
+          <a class="team-card" href="/contact.html"><img class="photo" src="/projet_Glion_VS/images/portrait/port_luca.webp" alt="Luca Molinari" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Luca Molinari</div><div class="role">Interviews, prise de contact</div></a>
+          <a class="team-card" href="/contact.html"><img class="photo" src="/projet_Glion_VS/images/portrait/20260719_PhotoSiteWebZigZag_0030.webp" alt="Maxime Gubler" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Maxime Gubler</div><div class="role">Photographies BTS, coordination</div></a>
+          <a class="team-card" href="/contact.html"><img class="photo" src="/projet_Glion_VS/images/portrait/port_andrea.webp" alt="Andrea Molinari" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Andrea Molinari</div><div class="role">Logistique, transport, claps</div></a>
+          <a class="team-card" href="/contact.html"><img class="photo" src="/projet_Glion_VS/images/ethan_lefantome.webp" alt="Ethan Broger" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="placeholder">Portrait</span><div class="name">Ethan Broger</div><div class="role">Réalisation, co-écriture, site web</div></a>
         </div>
       </div>
       
@@ -1355,6 +1355,24 @@
       justify-content: flex-end;
       position: relative;
       overflow: hidden;
+    }
+    /* Les cartes de l'équipe sont des liens : on neutralise le bleu/violet et le soulignement
+       du navigateur, et on signale la cliquabilité par un léger soulèvement au survol. */
+    a.team-card {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform .4s ease, border-color .4s ease;
+    }
+    a.team-card:hover,
+    a.team-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(10,10,10,0.35);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      a.team-card { transition: none; }
+      a.team-card:hover,
+      a.team-card:focus-visible { transform: none; }
     }
     .team-card::before {
       content: '';
