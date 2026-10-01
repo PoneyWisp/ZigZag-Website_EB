@@ -727,8 +727,8 @@
             </div>
             <div class="snap-bottom-gradient">
               <div class="button-wrap-snap">
-                <a href="/contact.html" target="_blank" class="nav-link cta w-inline-block"
-                  ><div class="button-label">Contact</div></a
+                <a href="mailto:lougrani@hotmail.com" target="_blank" class="nav-link cta w-inline-block"
+                  ><div class="button-label">Contactez-moi</div></a
                 >
                 <div class="label">C'est la voix de Lou qui accompagne le spectateur tout au long du film. 
                   Ayant grandi à Glion, elle apporte à la narration une authenticité que seule une voix du village pouvait offrir.</div>
@@ -1452,6 +1452,17 @@
       .kid-visible._2 {
         width: 50%;
       }
+    }
+
+    /* Les étoiles/traits décoratifs (.wrap-kid-notes) sont un calque absolu posé sur le bas de
+       la carte, après .snap-bottom-gradient dans le DOM et au même z-index : il passe donc
+       au-dessus du bouton "Contactez-moi" / "En savoir plus" et avalait ses clics sur la partie
+       droite (le conteneur démarre à 5% du bord, le bouton à 24px). Transparent ne veut pas dire
+       traversable : il faut pointer-events:none, comme le fait déjà le template pour .kid-visible
+       et .overlay-48. Le z-index du bouton ne pouvait rien y faire, .snap-bottom-gradient
+       (position:relative + z-index:1) créant un contexte d'empilement qui l'enferme. */
+    .wrap-kid-notes {
+      pointer-events: none;
     }
 
     /* Cartes équipe (Noah / Tino / Lou) en format téléphone : mise en page dédiée.
